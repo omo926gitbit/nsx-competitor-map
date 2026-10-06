@@ -633,11 +633,41 @@
   };
 
   var DIMS=[
-    {id:'icu',label:'分断能力 Icu (400/415V)',unit:'kA',values:{'100':'36 / 50 / 70','160':'36 / 50 / 70 / 100','250':'36 / 50 / 70 / 100 / 150','400':'50 / 70 / 100 / 150','630':'50 / 70 / 100 / 150'}},
-    {id:'trip',label:'脱扣器',unit:'',values:{'100':'热磁 TM-D · 电子 Micrologic 2','160':'热磁 TM-D · 电子 Micrologic 2','250':'热磁 TM-D · 电子 Micrologic 2·5·6','400':'热磁 TM-D · 电子 Micrologic 2·5·6','630':'热磁 TM-D · 电子 Micrologic 2·5·6'}},
-    {id:'cert',label:'认证',unit:'',values:{'100':'CCC · CE','160':'CCC · CE','250':'CCC · CE','400':'CCC · CE','630':'CCC · CE'}},
-    {id:'poles',label:'极数',unit:'',values:{'100':'3P / 4P','160':'3P / 4P','250':'3P / 4P','400':'3P / 4P','630':'3P / 4P'}},
-    {id:'mount',label:'安装方式',unit:'',values:{'100':'固定 / 插入','160':'固定 / 插入','250':'固定 / 插入 / 抽出','400':'固定 / 插入 / 抽出','630':'固定 / 插入 / 抽出'}}
+    {id:'icu',label:'分断能力 Icu (400/415V)',unit:'kA',values:{
+      '100':{nsx:'36 / 50 / 70',abb:'25 / 36 / 50 / 70 / 100 / 150',siemens:'25 / 36 / 50 / 55 / 70 / 85 / 110 / 150',eaton:'25 / 36 / 50 / 70 / 100 / 150',legrand:'36 / 50 / 70 / 100'},
+      '160':{nsx:'36 / 50 / 70 / 100',abb:'25 / 36 / 50 / 70 / 120 / 150',siemens:'16 / 25 / 36 / 50 / 55 / 70 / 85 / 110 / 150 / 200',eaton:'25 / 36 / 50 / 70 / 100 / 150',legrand:'36 / 50 / 70 / 100'},
+      '250':{nsx:'36 / 50 / 70 / 100 / 150',abb:'36 / 50 / 70 / 120 / 150',siemens:'16 / 25 / 36 / 50 / 55 / 70 / 85 / 110 / 150 / 200',eaton:'36 / 50 / 70 / 120 / 150',legrand:'36 / 50 / 70 / 100'},
+      '400':{nsx:'50 / 70 / 100 / 150',abb:'36 / 50 / 70 / 120 / 150 / 200',siemens:'16 / 25 / 36 / 50 / 55 / 70 / 85 / 110 / 150 / 200',eaton:'36 / 50 / 70 / 150',legrand:'36 / 50 / 70 / 100'},
+      '630':{nsx:'50 / 70 / 100 / 150',abb:'36 / 50 / 70 / 120 / 150 / 200',siemens:'16 / 25 / 36 / 50 / 55 / 70 / 85 / 110 / 150 / 200',eaton:'36 / 50 / 70 / 150',legrand:'36 / 50 / 70 / 100'}
+    }},
+    {id:'trip',label:'脱扣器',unit:'',values:{
+      '100':{nsx:'TM-D · Micrologic 2',abb:'TMD/TMA · Ekip Dip',siemens:'TM210/220 · ETU3/5/8 · TMA/MA/ETU11',eaton:'热磁 / 单磁 (NZM1/PDC1)',legrand:'TMF/TMA/MA (DRX125HP/TMX125)'},
+      '160':{nsx:'TM-D · Micrologic 2',abb:'TMD/TMA · Ekip Dip/Touch',siemens:'TM210/220/240 · ETU3/5/8 · TMA/MA/ETU11/12',eaton:'热磁 / 单磁 (NZM1·2/PDC1·2)',legrand:'TMF/TMA/MA/ELA (DRX250HP/TMX250)'},
+      '250':{nsx:'TM-D · Micrologic 2·5·6',abb:'TMD/TMA · Ekip Dip/Touch',siemens:'TM210/220/240 · ETU3/5/8 · TMA/MA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM2/PDC2)',legrand:'TMF/TMA/MA/ELA (DRX250HP/TMX250HP)'},
+      '400':{nsx:'TM-D · Micrologic 2·5·6',abb:'TMD/TMA · Ekip Touch/Hi-Touch',siemens:'TM240 · ETU3/5/8 · TMA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM3/PDC3)',legrand:'TMF/TMA/MA/ELA (DRX400HP/TMX400)'},
+      '630':{nsx:'TM-D · Micrologic 2·5·6',abb:'TMD/TMA · Ekip Touch/Hi-Touch',siemens:'TM240 · ETU3/5/8 · TMA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM3/PDC3)',legrand:'TMF/TMA/MA/ELA (DRX630HP/TMX630)'}
+    }},
+    {id:'cert',label:'认证',unit:'',values:{
+      '100':{nsx:'CCC · CE',abb:'CE · CCC',siemens:'CCC · CE',eaton:'CCC · CE · UL/CSA',legrand:'CCC · CE'},
+      '160':{nsx:'CCC · CE',abb:'CE · CCC',siemens:'CCC · CE',eaton:'CCC · CE · UL/CSA',legrand:'CCC · CE'},
+      '250':{nsx:'CCC · CE',abb:'CE · CCC',siemens:'CCC · CE',eaton:'CCC · CE · UL/CSA',legrand:'CCC · CE'},
+      '400':{nsx:'CCC · CE',abb:'CE · CCC',siemens:'CCC · CE',eaton:'CCC · CE · UL/CSA',legrand:'CCC · CE'},
+      '630':{nsx:'CCC · CE',abb:'CE · CCC',siemens:'CCC · CE',eaton:'CCC · CE · UL/CSA',legrand:'CCC · CE'}
+    }},
+    {id:'poles',label:'极数',unit:'',values:{
+      '100':{nsx:'3P / 4P',abb:'3P / 4P',siemens:'3P / 4P',eaton:'3P / 4P',legrand:'3P / 4P'},
+      '160':{nsx:'3P / 4P',abb:'3P / 4P',siemens:'3P / 4P',eaton:'3P / 4P',legrand:'3P / 4P'},
+      '250':{nsx:'3P / 4P',abb:'3P / 4P',siemens:'3P / 4P',eaton:'3P / 4P',legrand:'3P / 4P'},
+      '400':{nsx:'3P / 4P',abb:'3P / 4P',siemens:'3P / 4P',eaton:'3P / 4P',legrand:'3P / 4P'},
+      '630':{nsx:'3P / 4P',abb:'3P / 4P',siemens:'3P / 4P',eaton:'3P / 4P',legrand:'3P / 4P'}
+    }},
+    {id:'mount',label:'安装方式',unit:'',values:{
+      '100':{nsx:'固定 / 插入',abb:'固定 / 插入',siemens:'固定 / 插入',eaton:'固定 / 插入',legrand:'固定 / 插入'},
+      '160':{nsx:'固定 / 插入',abb:'固定 / 插入 / 抽出',siemens:'固定 / 插入',eaton:'固定 / 插入 / 抽出',legrand:'固定 / 插入'},
+      '250':{nsx:'固定 / 插入 / 抽出',abb:'固定 / 插入 / 抽出',siemens:'固定 / 插入 / 抽出',eaton:'固定 / 插入 / 抽出',legrand:'固定 / 插入'},
+      '400':{nsx:'固定 / 插入 / 抽出',abb:'固定 / 插入 / 抽出',siemens:'固定 / 插入 / 抽出',eaton:'固定 / 插入 / 抽出',legrand:'固定 / 插入 / 抽出'},
+      '630':{nsx:'固定 / 插入 / 抽出',abb:'固定 / 插入 / 抽出',siemens:'固定 / 插入 / 抽出',eaton:'固定 / 插入 / 抽出',legrand:'固定 / 插入 / 抽出'}
+    }}
   ];
 
   var POS={nsx:{x:.62,y:.78},abb:{x:.82,y:.80},siemens:{x:.86,y:.82},eaton:{x:.74,y:.70},legrand:{x:.50,y:.46},chint:{x:.52,y:.60},delixi:{x:.34,y:.44},nader:{x:.50,y:.58},csg:{x:.46,y:.50}};
@@ -748,8 +778,19 @@
     h+='</tr></thead><tbody>';
     FRAMES.forEach(function(f){
       h+='<tr><td class="rowhead">'+f+' A</td>';
-      h+='<td class="anchor-cell"><span class="cell">'+esc(dim.values[f])+(dim.unit?' <span style="color:var(--ink-3)">'+dim.unit+'</span>':'')+'</span></td>';
-      BRANDS.filter(function(b){return b.id!=='nsx';}).forEach(function(){h+='<td><span class="todo">待采集</span></td>';});
+      var v=dim.values[f];
+      var multi=(v && typeof v==='object');
+      function cell(val){
+        if(!val || val==='') return '<span class="todo">待采集</span>';
+        return '<span class="cell">'+esc(val)+(dim.unit?' <span style="color:var(--ink-3)">'+dim.unit+'</span>':'')+'</span>';
+      }
+      if(multi){
+        h+='<td class="anchor-cell">'+cell(v.nsx)+'</td>';
+        BRANDS.filter(function(b){return b.id!=='nsx';}).forEach(function(b){h+='<td>'+cell(v[b.id])+'</td>';});
+      }else{
+        h+='<td class="anchor-cell">'+cell(v)+'</td>';
+        BRANDS.filter(function(b){return b.id!=='nsx';}).forEach(function(){h+='<td><span class="todo">待采集</span></td>';});
+      }
       h+='</tr>';
     });
     h+='</tbody></table>';
