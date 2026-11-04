@@ -150,6 +150,22 @@
   .fn-extra ul li{margin-bottom:5px}
   .fn-extra ul li b{color:var(--ink)}
   .fn-extra .note{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin:0}
+  /* accessories */
+  .acc-chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+  .acc-chip{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:20px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+  .acc-chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .acc-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+  @media(max-width:900px){.acc-layout{grid-template-columns:1fr}}
+  .acc-detail{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;color:var(--ink-2)}
+  .acc-detail h4{margin:0 0 8px;font-size:14px;color:var(--ink)}
+  .acc-detail .row{display:flex;gap:8px;margin-bottom:5px}
+  .acc-detail .row b{flex:none;width:76px;color:var(--ink-3);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+  .acc-qty{display:inline-block;font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:6px}
+  .acc-cell{cursor:pointer}
+  .acc-cell:hover{background:var(--accent-soft)}
+  .acc-svg{width:100%;height:auto;display:block;background:var(--surface-2);border:1px solid var(--line);border-radius:10px}
+  .acc-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-top:6px}
+  .acc-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
 
   /* standards */
   .std-note{font-size:13px;color:var(--ink-2);margin:0 0 14px}
@@ -224,8 +240,9 @@
     <button class="tab" data-tab="standards" role="tab" aria-selected="false">标准认证<span class="n">04</span></button>
     <button class="tab" data-tab="mapping" role="tab" aria-selected="false">系列对标<span class="n">05</span></button>
     <button class="tab" data-tab="profiles" role="tab" aria-selected="false">竞品档案<span class="n">06</span></button>
-    <button class="tab" data-tab="insights" role="tab" aria-selected="false">三强洞察<span class="n">07</span></button>
-    <button class="tab" data-tab="strategy" role="tab" aria-selected="false">结论应对<span class="n">08</span></button>
+    <button class="tab" data-tab="insights" role="tab" aria-selected="false">五强洞察<span class="n">07</span></button>
+    <button class="tab" data-tab="accessories" role="tab" aria-selected="false">附件体系<span class="n">08</span></button>
+    <button class="tab" data-tab="strategy" role="tab" aria-selected="false">结论应对<span class="n">09</span></button>
   </div>
 </nav>
 
@@ -481,7 +498,91 @@
     </div>
   </section>
 
-  <!-- 08 结论应对 -->
+  <!-- 08 附件体系 -->
+  <section class="board" data-board="accessories">
+    <div class="board-head"><h2>附件体系</h2><span class="hint">NSX · ABB XT · 西门子 3VA · 壳架 × 附件矩阵</span></div>
+    <p class="lead">按 8 类常用附件归集，先看「壳架能不能装、能装几个、装什么型号」，再看指示触点的功能细分。SDE 适配器按壳架 + 脱扣器类型区分，不默认所有 SDE 都要适配器。</p>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">附件类别</p>
+        <p class="panel-sub">CATEGORY · 点击切换矩阵</p>
+        <div class="acc-chips" id="acc-chips"></div>
+        <div class="acc-layout">
+          <div class="tbl-scroll" id="acc-matrix"></div>
+          <div>
+            <div id="acc-detail" class="acc-detail">
+              <h4>附件安装位置</h4>
+              <p style="margin:0;font-size:12.5px">点击矩阵中的单元格查看型号、数量、适用脱扣器类型和样本页码。</p>
+            </div>
+            <div style="margin-top:12px">
+              <svg class="acc-svg" viewBox="0 0 320 300" role="img" aria-label="塑壳断路器附件安装位置示意">
+                <rect x="70" y="40" width="180" height="210" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>
+                <rect x="95" y="28" width="130" height="16" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+                <text x="160" y="40" text-anchor="middle" font-size="10" fill="var(--accent)">辅助/报警触点槽</text>
+                <rect x="100" y="70" width="120" height="150" rx="6" fill="var(--surface-2)" stroke="var(--line)"/>
+                <line x1="130" y1="95" x2="190" y2="95" stroke="var(--line-strong)" stroke-width="2"/>
+                <line x1="130" y1="115" x2="190" y2="115" stroke="var(--line-strong)" stroke-width="2"/>
+                <line x1="130" y1="135" x2="190" y2="135" stroke="var(--line-strong)" stroke-width="2"/>
+                <text x="160" y="165" text-anchor="middle" font-size="10" fill="var(--ink-3)">脱扣器 / 内部附件</text>
+                <text x="160" y="182" text-anchor="middle" font-size="9" fill="var(--ink-3)">分励 / 欠压 / 电操</text>
+                <rect x="72" y="105" width="22" height="54" rx="4" fill="var(--intl-soft)" stroke="var(--intl)" stroke-width="1.5"/>
+                <text x="60" y="135" text-anchor="middle" font-size="10" fill="var(--intl)" transform="rotate(-90 60 135)">旋转手柄</text>
+                <rect x="110" y="256" width="100" height="22" rx="4" fill="var(--dom-soft)" stroke="var(--dom)" stroke-width="1.5"/>
+                <text x="160" y="271" text-anchor="middle" font-size="10" fill="var(--dom)">通信 / 漏电模块</text>
+                <line x1="160" y1="250" x2="160" y2="256" stroke="var(--line-strong)"/>
+                <text x="260" y="70" font-size="10" fill="var(--ink-3)">前盖后插槽</text>
+                <text x="260" y="86" font-size="10" fill="var(--ink-3)">侧面/柜门</text>
+                <text x="260" y="102" font-size="10" fill="var(--ink-3)">底部模块</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">指示触点功能细分</p>
+        <p class="panel-sub">CONTACT FUNCTIONS · S51 / S52 拆开 · SAS/EAS 归入故障脱扣</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>功能维度</th><th>NSX</th><th>ABB XT</th><th>西门子 3VA</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td class="rowhead">触头位置</td><td class="cell">OF</td><td class="cell">Q（AUX）</td><td class="cell">AUX</td><td class="cell">主触头合/分位置</td></tr>
+              <tr><td class="rowhead">任意脱扣</td><td class="cell">SD</td><td class="cell">SY</td><td class="cell">TAS</td><td class="cell">任何原因脱扣都动作</td></tr>
+              <tr><td class="rowhead">故障脱扣</td><td class="cell">SDE</td><td class="cell">S51</td><td class="cell">EAS（电子）/ SAS（短路）</td><td class="cell">过载、短路、接地/漏电</td></tr>
+              <tr><td class="rowhead">线圈脱扣</td><td class="cell"><span class="todo">待核对</span>（SD+SDE 组合判断）</td><td class="cell">S52</td><td class="cell"><span class="todo">待核对</span>（TAS 是否覆盖）</td><td class="cell">分励 MX/SOR/STF、欠压 MN/UVR</td></tr>
+              <tr><td class="rowhead">漏电专用</td><td class="cell">SDV（配 Vigi）</td><td class="cell">RC 模块自带信号</td><td class="cell">RCD 模块自带信号</td><td class="cell">漏电故障脱扣指示</td></tr>
+              <tr><td class="rowhead">过载/电机预报警</td><td class="cell">SDx / SDTAM</td><td class="cell">Ekip 软件报警</td><td class="cell">样本未见独立触点</td><td class="cell">SDTAM 提前打开接触器</td></tr>
+              <tr><td class="rowhead">插入/抽出位置</td><td class="cell">CE/CD</td><td class="cell">AUP</td><td class="cell"><span class="todo">待核对</span></td><td class="cell">连接/试验/抽出位置</td></tr>
+              <tr><td class="rowhead">预合/预分</td><td class="cell">CAM</td><td class="cell">AUE</td><td class="cell">LCS</td><td class="cell">提前动作触点</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">SDE 适配器规则（NSX）</p>
+        <p class="panel-sub">SDE ADAPTER · 按壳架 + 脱扣器类型区分</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>壳架</th><th>脱扣器类型</th><th>SDE 实现</th><th>是否需单独订购适配器</th></tr></thead>
+            <tbody>
+              <tr><td class="rowhead">NSX100 / 160 / 250</td><td class="cell">Micrologic 5A/5E、6B/6A/6E、7E</td><td class="cell">标配 SDE</td><td class="cell">不需要</td></tr>
+              <tr><td class="rowhead">NSX100 / 160 / 250</td><td class="cell">TMD、TAM、MA、Micrologic 2.2、5.2B</td><td class="cell">需 SDE 适配器 LV429451</td><td class="cell">需要</td></tr>
+              <tr><td class="rowhead">NSX400 / 630</td><td class="cell">全部脱扣器类型</td><td class="cell">标配 SDE 适配器</td><td class="cell">不需要</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="panel-sub" style="margin-top:10px;margin-bottom:0">来源：NSX 202609 p142 / p146 / p409 / p413</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 结论应对 -->
   <section class="board" data-board="strategy">
     <div class="board-head"><h2>结论与应对</h2><span class="hint">参数 + 行业 + 价格落地后填充</span></div>
     <p class="lead">把功能图谱的厂家差异、行业映射的优先级、价格数据汇总，形成 NSX 相对优劣势与可执行建议。</p>
@@ -670,7 +771,69 @@
     }}
   ];
 
-  var POS={nsx:{x:.62,y:.78},abb:{x:.82,y:.80},siemens:{x:.86,y:.82},eaton:{x:.74,y:.70},legrand:{x:.50,y:.46},chint:{x:.52,y:.60},delixi:{x:.34,y:.44},nader:{x:.50,y:.58},csg:{x:.46,y:.50}};
+  var ACC_CATS=[
+    {id:'aux',name:'辅助触点（位置指示）'},
+    {id:'alarm',name:'报警/脱扣触点'},
+    {id:'shunt',name:'分励脱扣器'},
+    {id:'uvr',name:'欠压脱扣器'},
+    {id:'motorop',name:'电动操作机构'},
+    {id:'handle',name:'旋转手柄'},
+    {id:'comm',name:'通信模块'},
+    {id:'rcd',name:'漏电模块'}
+  ];
+
+  // frames 用数组表示适用壳架；qty 为最大数量（按样本/槽位）
+  var ACCESSORIES=[
+    // ---- 辅助触点（位置指示） ----
+    {cat:'aux',brand:'nsx',frames:['100','160','250'],model:'OF 29450',qty:'2',trip:'全类型',note:'低水平 29452',page:'p131',status:'verified'},
+    {cat:'aux',brand:'nsx',frames:['400','630'],model:'OF 29450',qty:'4',trip:'全类型',note:'低水平 29452；OF1–OF4',page:'p131',status:'verified'},
+    {cat:'aux',brand:'abb',frames:['100','160','250'],model:'Q（AUX）',qty:'3',trip:'全类型',note:'AUX 组合上限 3Q+1SY',page:'p170',status:'verified'},
+    {cat:'aux',brand:'abb',frames:['400','630'],model:'Q（AUX）',qty:'3',trip:'全类型',note:'AUX 组合上限 3Q+1SY+1S51+1S52',page:'p170',status:'verified'},
+    {cat:'aux',brand:'siemens',frames:['100','160'],model:'AUX_HQ 3VA9988-0AA12',qty:'6',trip:'全类型',note:'槽位 23/22/21/11/12/13',page:'p55 / p192',status:'verified'},
+    {cat:'aux',brand:'siemens',frames:['250'],model:'AUX_HQ 3VA9988-0AA12',qty:'8',trip:'全类型',note:'槽位 24/23/22/21/11–14',page:'p55 / p192',status:'verified'},
+    {cat:'aux',brand:'siemens',frames:['400','630'],model:'AUX_HQ 3VA9988-0AA12',qty:'10（3P）/15（4P）',trip:'全类型',note:'3P 10 槽，4P 15 槽',page:'p56 / p192',status:'verified'},
+
+    // ---- 报警/脱扣触点 ----
+    {cat:'alarm',brand:'nsx',frames:['100','160','250','400','630'],model:'SD / SDE / SDV',qty:'各 1',trip:'全类型（SDE 适配器见规则）',note:'SD 任意脱扣；SDE 故障脱扣；SDV 漏电；SDx/SDTAM 电子/电机专用',page:'p131 / p142 / p144',status:'verified'},
+    {cat:'alarm',brand:'abb',frames:['100','160','250'],model:'SY / S51',qty:'SY 1–2；S51 1',trip:'全类型',note:'S52 仅 XT5/XT6；XT1/XT3 无 S51',page:'p169 / p170',status:'verified'},
+    {cat:'alarm',brand:'abb',frames:['400','630'],model:'SY / S51 / S52',qty:'各 1',trip:'全类型',note:'S52 为分励/欠压线圈脱扣专用',page:'p169 / p170',status:'verified'},
+    {cat:'alarm',brand:'siemens',frames:['100','160','250'],model:'TAS / SAS / EAS',qty:'按槽位；SAS/EAS 各 1',trip:'TAS 全类型；SAS 短路；EAS 电子',note:'SAS 部分壳架；EAS 仅 ETU',page:'p192 / p55',status:'verified'},
+    {cat:'alarm',brand:'siemens',frames:['400','630'],model:'TAS / SAS / EAS',qty:'按槽位；SAS/EAS 各 1',trip:'TAS 全类型；SAS 短路；EAS 电子',note:'SAS 3VA13/14 可见；EAS 仅 ETU',page:'p192 / p56',status:'verified'},
+
+    // ---- 分励脱扣器 ----
+    {cat:'shunt',brand:'nsx',frames:['100','160','250','400','630'],model:'MX',qty:'1',trip:'全类型',note:'与 MN 二选一',page:'p260',status:'verified'},
+    {cat:'shunt',brand:'abb',frames:['100','160','250','400','630'],model:'SOR / YO',qty:'1',trip:'全类型',note:'S52 可指示其动作',page:'p169',status:'verified'},
+    {cat:'shunt',brand:'siemens',frames:['100','160','250','400','630'],model:'STF / STL',qty:'1',trip:'全类型',note:'STL 左侧型；STF 灵活型',page:'p192',status:'verified'},
+
+    // ---- 欠压脱扣器 ----
+    {cat:'uvr',brand:'nsx',frames:['100','160','250','400','630'],model:'MN',qty:'1',trip:'全类型',note:'与 MX 二选一',page:'p260',status:'verified'},
+    {cat:'uvr',brand:'abb',frames:['100','160','250','400','630'],model:'UVR / YU',qty:'1',trip:'全类型',note:'S52 可指示其动作',page:'p169',status:'verified'},
+    {cat:'uvr',brand:'siemens',frames:['100','160','250','400','630'],model:'UVR / UNI',qty:'1',trip:'全类型',note:'UNI = 欠压 + 分励复合',page:'p192',status:'verified'},
+
+    // ---- 电动操作机构 ----
+    {cat:'motorop',brand:'nsx',frames:['100','160','250'],model:'MT100/160/250（MTc 可选）',qty:'1',trip:'全类型',note:'MTc 需配 DCM；SDE 适配器按规则',page:'p146 / p390',status:'verified'},
+    {cat:'motorop',brand:'nsx',frames:['400','630'],model:'MT400/630（MTc 可选）',qty:'1',trip:'全类型',note:'400/630 已标配 SDE 适配器',page:'p146 / p390',status:'verified'},
+    {cat:'motorop',brand:'abb',frames:['100','160','250'],model:'MOD / MOE',qty:'1',trip:'全类型',note:'XT2–XT4 用 MOE',page:'p181',status:'verified'},
+    {cat:'motorop',brand:'abb',frames:['400','630'],model:'MOD / MOE / M',qty:'1',trip:'全类型',note:'XT5–XT6 用 MOE/M',page:'p181',status:'verified'},
+    {cat:'motorop',brand:'siemens',frames:['100','160','250','400','630'],model:'MO',qty:'1',trip:'全类型',note:'MO320/SEO520 按壳架',page:'p192',status:'verified'},
+
+    // ---- 旋转手柄 ----
+    {cat:'handle',brand:'nsx',frames:['100','160','250','400','630'],model:'RH / ERH',qty:'1',trip:'全类型',note:'直接/延伸；CAM 预合预分触点',page:'p115',status:'verified'},
+    {cat:'handle',brand:'abb',frames:['100','160','250','400','630'],model:'RHD / RHE / RHS',qty:'1',trip:'全类型',note:'直动/加长/侧面',page:'p181',status:'verified'},
+    {cat:'handle',brand:'siemens',frames:['100','160','250','400','630'],model:'DH / 直接手柄',qty:'1',trip:'全类型',note:'门耦合/直接旋转',page:'p192',status:'verified'},
+
+    // ---- 通信模块 ----
+    {cat:'comm',brand:'nsx',frames:['100','160','250','400','630'],model:'DCM LV434311 / BSCM',qty:'1',trip:'电子为主；COM2 支持 TMD/MA',note:'COM1–COM4 方案；需 24V DC',page:'p409 / p413',status:'verified'},
+    {cat:'comm',brand:'abb',frames:['100','160','250','400','630'],model:'Ekip COM 系列',qty:'1',trip:'Ekip Dip/Touch',note:'Modbus/Profinet/EtherNet-IP；Ekip COM Hub',page:'p191',status:'verified'},
+    {cat:'comm',brand:'siemens',frames:['100','160','250','400','630'],model:'COM060 / COM800',qty:'1',trip:'ETU5/8',note:'COM060 Modbus；COM800 Profinet',page:'p10 / p59',status:'verified'},
+
+    // ---- 漏电模块 ----
+    {cat:'rcd',brand:'nsx',frames:['100','160','250','400','630'],model:'Vigi EL / ELA',qty:'1',trip:'全类型',note:'30mA–30A；ELA 只报警不脱扣',page:'p234',status:'verified'},
+    {cat:'rcd',brand:'abb',frames:['100','160','250'],model:'RC Sel / RC Inst',qty:'1',trip:'全类型',note:'RC 4P 插入/抽出有降容',page:'p210',status:'verified'},
+    {cat:'rcd',brand:'abb',frames:['400','630'],model:'RC Sel / RC B',qty:'1',trip:'全类型',note:'RC B 型用于平滑直流漏电',page:'p210 / p211',status:'verified'},
+    {cat:'rcd',brand:'siemens',frames:['100','160'],model:'RCD310 / RCD510',qty:'1',trip:'全类型',note:'侧装；至 160A',page:'p67',status:'verified'},
+    {cat:'rcd',brand:'siemens',frames:['250','400','630'],model:'RCD520 / RCD820',qty:'1',trip:'全类型',note:'RCD820 可通信/报警',page:'p67 / p68',status:'verified'}
+  ];
 
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function stTag(s){return s==='pending'?'<span class="st pending">待核对</span>':(s==='verified'?'<span class="st verified">已核对</span>':'<span class="st todo">待采集</span>');}
@@ -819,6 +982,59 @@
     });
   }
 
+  /* accessories */
+  var currentAccCat='aux';
+  var ACC_BRANDS={nsx:'NSX',abb:'ABB XT',siemens:'西门子 3VA'};
+  function accEntry(brand,frame,cat){
+    return ACCESSORIES.find(function(a){
+      return a.brand===brand && a.cat===cat && a.frames.indexOf(frame)!==-1;
+    });
+  }
+  function renderAccChips(){
+    var el=document.getElementById('acc-chips');el.innerHTML='';
+    ACC_CATS.forEach(function(c){
+      var b=document.createElement('button');
+      b.className='acc-chip'+(c.id===currentAccCat?' active':'');
+      b.type='button';b.textContent=c.name;
+      b.onclick=function(){currentAccCat=c.id;renderAccChips();renderAccMatrix();};
+      el.appendChild(b);
+    });
+  }
+  function renderAccMatrix(){
+    var h='<table><thead><tr><th style="min-width:64px">壳架</th><th class="anchor-cell">NSX</th><th>ABB XT</th><th>西门子 3VA</th></tr></thead><tbody>';
+    FRAMES.forEach(function(f){
+      h+='<tr><td class="rowhead">'+f+' A</td>';
+      ['nsx','abb','siemens'].forEach(function(b){
+        var e=accEntry(b,f,currentAccCat);
+        if(!e){
+          h+='<td><span class="todo">待采集</span></td>';
+        }else{
+          h+='<td class="acc-cell" onclick="showAccDetail(\''+b+'\',\''+f+'\',\''+currentAccCat+'\')">'+
+             '<span class="cell">'+esc(e.model)+'</span><span class="acc-qty">'+esc(e.qty)+'</span>'+
+             '</td>';
+        }
+      });
+      h+='</tr>';
+    });
+    h+='</tbody></table>';
+    document.getElementById('acc-matrix').innerHTML=h;
+  }
+  window.showAccDetail=function(brand,frame,cat){
+    var e=accEntry(brand,frame,cat);
+    var el=document.getElementById('acc-detail');
+    if(!e){el.innerHTML='<h4>'+ACC_BRANDS[brand]+' · '+frame+' A</h4><p>暂无数据。</p>';return;}
+    var catName='';
+    ACC_CATS.forEach(function(c){if(c.id===cat)catName=c.name;});
+    el.innerHTML='<h4>'+esc(ACC_BRANDS[brand])+' · '+frame+' A</h4>'+
+      '<div class="row"><b>类别</b><span>'+esc(catName)+'</span></div>'+
+      '<div class="row"><b>型号</b><span>'+esc(e.model)+'</span></div>'+
+      '<div class="row"><b>最大数量</b><span>'+esc(e.qty)+'</span></div>'+
+      '<div class="row"><b>适用脱扣器</b><span>'+esc(e.trip)+'</span></div>'+
+      '<div class="row"><b>备注</b><span>'+esc(e.note)+'</span></div>'+
+      '<div class="row"><b>样本页码</b><span>'+esc(e.page)+'</span></div>'+
+      '<div class="row"><b>状态</b><span>'+stTag(e.status)+'</span></div>';
+  };
+
   /* tabs */
   var tabs=document.querySelectorAll('.tab');
   tabs.forEach(function(t){
@@ -836,5 +1052,7 @@
   renderMap();
   renderDims();
   renderBrands();
+  renderAccChips();
+  renderAccMatrix();
 })();
 </script>
