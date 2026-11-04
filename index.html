@@ -835,6 +835,8 @@
     {cat:'rcd',brand:'siemens',frames:['250','400','630'],model:'RCD520 / RCD820',qty:'1',trip:'全类型',note:'RCD820 可通信/报警',page:'p67 / p68',status:'verified'}
   ];
 
+  var POS={nsx:{x:.62,y:.78},abb:{x:.82,y:.80},siemens:{x:.86,y:.82},eaton:{x:.74,y:.70},legrand:{x:.50,y:.46},chint:{x:.52,y:.60},delixi:{x:.34,y:.44},nader:{x:.50,y:.58},csg:{x:.46,y:.50}};
+
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function stTag(s){return s==='pending'?'<span class="st pending">待核对</span>':(s==='verified'?'<span class="st verified">已核对</span>':'<span class="st todo">待采集</span>');}
 
