@@ -166,6 +166,19 @@
   .acc-svg{width:100%;height:auto;display:block;background:var(--surface-2);border:1px solid var(--line);border-radius:10px}
   .acc-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-top:6px}
   .acc-legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
+  .acc-visual-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:12px;font-size:13px;color:var(--ink-2)}
+  .acc-visual-controls select{font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);margin-left:6px}
+  .acc-visual-status{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+  .acc-visual-wrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
+  @media(max-width:900px){.acc-visual-wrap{grid-template-columns:1fr}}
+  .acc-visual-imgbox{position:relative;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:260px}
+  .acc-visual-imgbox img{display:block;width:100%;height:auto}
+  .acc-visual-note{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;color:var(--ink-2);line-height:1.6}
+  .acc-visual-note b{color:var(--ink)}
+  .acc-hotspot{position:absolute;border:2px solid var(--accent);background:rgba(0,133,45,.12);border-radius:6px;box-shadow:0 0 0 4px rgba(0,133,45,.08);display:none;pointer-events:none}
+  .acc-hotspot.active{display:block;animation:accPulse 1.6s ease-in-out infinite}
+  .acc-hotspot span{position:absolute;top:-22px;left:-2px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:4px;white-space:nowrap}
+  @keyframes accPulse{0%,100%{box-shadow:0 0 0 4px rgba(0,133,45,.08)}50%{box-shadow:0 0 0 8px rgba(0,133,45,.18)}}
 
   /* standards */
   .std-note{font-size:13px;color:var(--ink-2);margin:0 0 14px}
@@ -515,27 +528,38 @@
               <h4>附件安装位置</h4>
               <p style="margin:0;font-size:12.5px">点击矩阵中的单元格查看型号、数量、适用脱扣器类型和样本页码。</p>
             </div>
-            <div style="margin-top:12px">
-              <svg class="acc-svg" viewBox="0 0 320 300" role="img" aria-label="塑壳断路器附件安装位置示意">
-                <rect x="70" y="40" width="180" height="210" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>
-                <rect x="95" y="28" width="130" height="16" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
-                <text x="160" y="40" text-anchor="middle" font-size="10" fill="var(--accent)">辅助/报警触点槽</text>
-                <rect x="100" y="70" width="120" height="150" rx="6" fill="var(--surface-2)" stroke="var(--line)"/>
-                <line x1="130" y1="95" x2="190" y2="95" stroke="var(--line-strong)" stroke-width="2"/>
-                <line x1="130" y1="115" x2="190" y2="115" stroke="var(--line-strong)" stroke-width="2"/>
-                <line x1="130" y1="135" x2="190" y2="135" stroke="var(--line-strong)" stroke-width="2"/>
-                <text x="160" y="165" text-anchor="middle" font-size="10" fill="var(--ink-3)">脱扣器 / 内部附件</text>
-                <text x="160" y="182" text-anchor="middle" font-size="9" fill="var(--ink-3)">分励 / 欠压 / 电操</text>
-                <rect x="72" y="105" width="22" height="54" rx="4" fill="var(--intl-soft)" stroke="var(--intl)" stroke-width="1.5"/>
-                <text x="60" y="135" text-anchor="middle" font-size="10" fill="var(--intl)" transform="rotate(-90 60 135)">旋转手柄</text>
-                <rect x="110" y="256" width="100" height="22" rx="4" fill="var(--dom-soft)" stroke="var(--dom)" stroke-width="1.5"/>
-                <text x="160" y="271" text-anchor="middle" font-size="10" fill="var(--dom)">通信 / 漏电模块</text>
-                <line x1="160" y1="250" x2="160" y2="256" stroke="var(--line-strong)"/>
-                <text x="260" y="70" font-size="10" fill="var(--ink-3)">前盖后插槽</text>
-                <text x="260" y="86" font-size="10" fill="var(--ink-3)">侧面/柜门</text>
-                <text x="260" y="102" font-size="10" fill="var(--ink-3)">底部模块</text>
-              </svg>
-            </div>
+            <div style="margin-top:12px;font-size:12px;color:var(--ink-3)">选择单元格后，下方「安装示意」会显示 NSX 样本截图和高亮位置。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="acc-visual-panel">
+      <div class="panel-pad">
+        <p class="panel-title">安装示意（NSX 样本截图）</p>
+        <p class="panel-sub">先选附件类别 → 点矩阵里的 NSX 单元格 → 选壳架和脱扣单元 → 查看高亮位置</p>
+        <div class="acc-visual-controls">
+          <label>壳架
+            <select id="acc-frame-select">
+              <option value="100-250">100–250A</option>
+              <option value="400-630">400/630A</option>
+            </select>
+          </label>
+          <label>脱扣单元
+            <select id="acc-trip-select">
+              <option value="tm">配电热磁 / 电动机热磁 / 发电机</option>
+              <option value="el">配电电子 / 电动机电子</option>
+            </select>
+          </label>
+          <span class="acc-visual-status" id="acc-visual-status">等待选择</span>
+        </div>
+        <div class="acc-visual-wrap">
+          <div class="acc-visual-imgbox" id="acc-visual-imgbox">
+            <img id="acc-visual-img" alt="NSX 附件安装示意" src="">
+            <div id="acc-hotspots"></div>
+          </div>
+          <div class="acc-visual-note" id="acc-visual-note">
+            点击上方矩阵中的 NSX 单元格，这里会显示样本截图、附件高亮和壳架适配说明。
           </div>
         </div>
       </div>
@@ -1021,6 +1045,96 @@
     h+='</tbody></table>';
     document.getElementById('acc-matrix').innerHTML=h;
   }
+  var ACC_IMAGES={
+    '100-250-tm':'附件图/nsx-100-250-tm.png',
+    '100-250-el':'附件图/nsx-100-250-el.png',
+    '400-630-tm':'附件图/nsx-400-630-tm.png',
+    '400-630-el':'附件图/nsx-400-630-el.png'
+  };
+  var ACC_HOTSPOTS={
+    '100-250-tm':{
+      aux:[{l:36,t:34,w:9,h:8,label:'OF1'}],
+      alarm:[{l:38,t:24,w:8,h:6,label:'SD'},{l:57,t:32,w:8,h:7,label:'SDE'}],
+      shunt:[{l:37,t:47,w:11,h:12,label:'MX'}],
+      uvr:[{l:37,t:47,w:11,h:12,label:'MN'}],
+      rcd:[{l:59,t:74,w:7,h:11,label:'SDV'}],
+      comm:[{l:55,t:70,w:9,h:9,label:'通信/SDx'}],
+      motorop:[{l:40,t:12,w:20,h:10,label:'电操'}],
+      handle:[{l:40,t:12,w:20,h:10,label:'手柄'}]
+    },
+    '100-250-el':{
+      aux:[{l:35,t:48,w:8,h:8,label:'OF'}],
+      alarm:[{l:60,t:40,w:8,h:10,label:'SD/SDE'}],
+      shunt:[{l:36,t:55,w:8,h:12,label:'MX'}],
+      uvr:[{l:36,t:55,w:8,h:12,label:'MN'}],
+      rcd:[{l:55,t:75,w:8,h:10,label:'SDV'}],
+      comm:[{l:34,t:35,w:8,h:15,label:'SDx/SDTAM'}],
+      motorop:[{l:40,t:12,w:20,h:10,label:'电操'}],
+      handle:[{l:40,t:12,w:20,h:10,label:'手柄'}]
+    },
+    '400-630-tm':{
+      aux:[{l:28,t:32,w:8,h:18,label:'OF1–OF3'}],
+      alarm:[{l:55,t:24,w:8,h:6,label:'SD'},{l:58,t:32,w:8,h:7,label:'SDE'}],
+      shunt:[{l:28,t:47,w:8,h:12,label:'MX'}],
+      uvr:[{l:28,t:47,w:8,h:12,label:'MN'}],
+      rcd:[{l:55,t:78,w:7,h:10,label:'SDV'}],
+      comm:[{l:55,t:70,w:9,h:10,label:'通信'}],
+      motorop:[{l:35,t:8,w:20,h:10,label:'电操'}],
+      handle:[{l:35,t:8,w:20,h:10,label:'手柄'}]
+    },
+    '400-630-el':{
+      aux:[{l:35,t:45,w:8,h:10,label:'OF'}],
+      alarm:[{l:60,t:40,w:8,h:10,label:'SD/SDE'}],
+      shunt:[{l:35,t:55,w:8,h:12,label:'MX'}],
+      uvr:[{l:35,t:55,w:8,h:12,label:'MN'}],
+      rcd:[{l:55,t:75,w:8,h:10,label:'SDV'}],
+      comm:[{l:34,t:35,w:8,h:15,label:'SDx/SDTAM'}],
+      motorop:[{l:40,t:10,w:20,h:10,label:'电操'}],
+      handle:[{l:40,t:10,w:20,h:10,label:'手柄'}]
+    }
+  };
+  var accVisualState={brand:null,frameCat:'100-250',tripCat:'tm',cat:'aux',frame:'100'};
+  function accImageKey(){return accVisualState.frameCat+'-'+accVisualState.tripCat;}
+  function renderAccVisual(){
+    var wrap=document.getElementById('acc-visual-img');
+    var hot=document.getElementById('acc-hotspots');
+    var note=document.getElementById('acc-visual-note');
+    var status=document.getElementById('acc-visual-status');
+    if(!accVisualState.brand){
+      wrap.removeAttribute('src');
+      hot.innerHTML='';
+      status.textContent='等待选择';
+      note.innerHTML='点击上方矩阵中的 NSX 单元格，这里会显示样本截图、附件高亮和壳架适配说明。';
+      return;
+    }
+    if(accVisualState.brand!=='nsx'){
+      wrap.removeAttribute('src');
+      hot.innerHTML='';
+      status.textContent='暂不支持';
+      note.innerHTML='当前版本只做了 NSX 的样本截图；ABB XT / 西门子 3VA 的安装示意下一步补充。';
+      return;
+    }
+    var key=accImageKey();
+    wrap.src=ACC_IMAGES[key];
+    var e=accEntry('nsx',accVisualState.frame,accVisualState.cat);
+    var boxes=(ACC_HOTSPOTS[key]&&ACC_HOTSPOTS[key][accVisualState.cat])||[];
+    hot.innerHTML=boxes.map(function(b){
+      return '<div class="acc-hotspot active" style="left:'+b.l+'%;top:'+b.t+'%;width:'+b.w+'%;height:'+b.h+'%"><span>'+esc(b.label)+'</span></div>';
+    }).join('');
+    var f1=e&&e.frames.some(function(x){return x==='100'||x==='160'||x==='250';});
+    var f2=e&&e.frames.some(function(x){return x==='400'||x==='630';});
+    var tripLabel=accVisualState.tripCat==='el'?'配电电子 / 电动机电子':'配电热磁 / 电动机热磁 / 发电机';
+    status.textContent='NSX · '+accVisualState.frameCat+'A · '+(accVisualState.tripCat==='el'?'电子':'热磁/单磁');
+    if(e){
+      note.innerHTML='<b>壳架适配</b>：100–250 '+(f1?'✅ 可装':'—')+'；400/630 '+(f2?'✅ 可装':'—')+'<br>'+
+        '<b>当前选择</b>：NSX · '+accVisualState.frameCat+'A · '+tripLabel+'<br>'+
+        '<b>附件</b>：'+esc(e.model)+'（最大 '+esc(e.qty)+'）<br>'+
+        '<b>说明</b>：'+esc(e.note)+'<br>'+
+        '<b>样本</b>：'+esc(e.page);
+    }else{
+      note.innerHTML='当前壳架/附件组合在矩阵中没有数据，请换一个单元格。';
+    }
+  }
   window.showAccDetail=function(brand,frame,cat){
     var e=accEntry(brand,frame,cat);
     var el=document.getElementById('acc-detail');
@@ -1035,6 +1149,14 @@
       '<div class="row"><b>备注</b><span>'+esc(e.note)+'</span></div>'+
       '<div class="row"><b>样本页码</b><span>'+esc(e.page)+'</span></div>'+
       '<div class="row"><b>状态</b><span>'+stTag(e.status)+'</span></div>';
+    accVisualState.brand=brand;
+    accVisualState.cat=cat;
+    accVisualState.frame=frame;
+    accVisualState.frameCat=(frame==='100'||frame==='160'||frame==='250')?'100-250':'400-630';
+    accVisualState.tripCat=(cat==='comm')?'el':'tm';
+    document.getElementById('acc-frame-select').value=accVisualState.frameCat;
+    document.getElementById('acc-trip-select').value=accVisualState.tripCat;
+    renderAccVisual();
   };
 
   /* tabs */
@@ -1056,5 +1178,14 @@
   renderBrands();
   renderAccChips();
   renderAccMatrix();
+  renderAccVisual();
+  document.getElementById('acc-frame-select').onchange=function(){
+    accVisualState.frameCat=this.value;
+    renderAccVisual();
+  };
+  document.getElementById('acc-trip-select').onchange=function(){
+    accVisualState.tripCat=this.value;
+    renderAccVisual();
+  };
 })();
 </script>
