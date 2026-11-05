@@ -402,6 +402,42 @@
         </div>
       </div>
     </div>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">脱扣单元整定值（总表）</p>
+        <p class="panel-sub">TMD · Micrologic 5 / 6 · Vigi · 100–250 与 400/630 壳架</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>壳架</th><th>脱扣单元</th><th>Ir</th><th>Ii</th><th>Isd / tsd</th><th>Ig / tg</th><th>漏电 IΔn</th><th>漏电延时</th></tr></thead>
+            <tbody>
+              <tr><td class="rowhead">100–250A</td><td class="cell">TMD 热磁</td><td class="cell">0.7–1 In 可调</td><td class="cell">16–160A 固定；200/250A 5–10In 可调</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td></tr>
+              <tr><td class="rowhead">100–250A</td><td class="cell">Micrologic 5B/A/E</td><td class="cell">0.4–1 In 可调</td><td class="cell">40–160A 1.5–15In；250A 1.5–12In 可调</td><td class="cell">1.5–10 Ir 可调；tsd 0–0.4s</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td></tr>
+              <tr><td class="rowhead">100–250A</td><td class="cell">Micrologic 6B/A/E</td><td class="cell">0.4–1 In 可调</td><td class="cell">40–160A 1.5–15In；250A 1.5–12In 可调</td><td class="cell">1.5–10 Ir 可调；tsd 0–0.4s</td><td class="cell">0.2–1 In 可调；tg 0–0.4s</td><td class="cell">—</td><td class="cell">—</td></tr>
+              <tr><td class="rowhead">100–250A</td><td class="cell">Vigi 漏电模块</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td><td class="cell">0.03/0.1/0.3/0.5/1/3A（A型）；10/30A（AC型）</td><td class="cell">0/60/150/300/500/800/1200/4000ms；30mA 固定 0ms</td></tr>
+              <tr><td class="rowhead">400/630A</td><td class="cell">TMD 热磁</td><td class="cell">0.7–1 In 可调</td><td class="cell">320A 5–10In；400–500A 4–10In；630A 5–10In 可调</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td></tr>
+              <tr><td class="rowhead">400/630A</td><td class="cell">Micrologic 5B/A/E</td><td class="cell">0.4–1 In 可调</td><td class="cell">400A 1.5–12In；630A 1.5–11In 可调</td><td class="cell">1.5–10 Ir 可调；tsd 0–0.4s</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td></tr>
+              <tr><td class="rowhead">400/630A</td><td class="cell">Micrologic 6B/A/E</td><td class="cell">0.4–1 In 可调</td><td class="cell">400A 1.5–12In；630A 1.5–11In 可调</td><td class="cell">1.5–10 Ir 可调；tsd 0–0.4s</td><td class="cell">0.2–1 In 可调；tg 0–0.4s</td><td class="cell">—</td><td class="cell">—</td></tr>
+              <tr><td class="rowhead">400/630A</td><td class="cell">Vigi 漏电模块</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td><td class="cell">—</td><td class="cell">0.03/0.1/0.3/0.5/1/3A（A型）；10/30A（AC型）</td><td class="cell">0/60/150/300/500/800/1200/4000ms；30mA 固定 0ms</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">整定图片</p>
+        <p class="panel-sub">点击脱扣单元名称，显示样本整定页；图框内可滚动</p>
+        <div class="acc-chips" id="trip-chips"></div>
+        <div class="acc-visual-wrap">
+          <div class="acc-visual-imgbox scrollable" style="max-height:620px">
+            <div class="acc-visual-inner"><img id="trip-img" alt="脱扣单元整定值" style="display:none"></div>
+          </div>
+          <div class="acc-visual-note" id="trip-note">点击上方按钮查看样本整定页。</div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- 06 竞品档案 -->
@@ -1233,6 +1269,31 @@
     renderAccVisual();
   };
 
+  /* trip unit settings */
+  var TRIP_SETTINGS=[
+    {id:'tmd',name:'NSX TMD',img:'附件图/nsx-tmd-settings.png',note:'<b>Ir</b> 0.7–1 In 可调；<b>Ii</b> 16–160A 固定，200/250A 为 5–10In 可调，320A 5–10In、400–500A 4–10In、630A 5–10In；<b>Isd / Ig</b> 无。样本 B-8。'},
+    {id:'mic5',name:'NSX Micrologic 5B/A/E',img:'附件图/nsx-mic56-settings.png',note:'<b>Ir</b> 0.4–1 In；<b>Isd</b> 1.5–10 Ir，<b>tsd</b> 0–0.4s；<b>Ii</b> 40–160A 1.5–15In、250A 1.5–12In、400A 1.5–12In、630A 1.5–11In；无 Ig。样本 B-26。'},
+    {id:'mic6',name:'NSX Micrologic 6B/A/E',img:'附件图/nsx-mic56-settings.png',note:'<b>Ir</b> 0.4–1 In；<b>Isd</b> 1.5–10 Ir，<b>tsd</b> 0–0.4s；<b>Ii</b> 同 5 系列；<b>Ig</b> 0.2–1 In，<b>tg</b> 0–0.4s。样本 B-26。'},
+    {id:'vigi',name:'NSX Vigi 漏电模块',img:'附件图/nsx-vigi-settings.png',note:'<b>IΔn</b> A 型 0.03/0.1/0.3/0.5/1/3A，AC 型 10/30A；<b>延时</b> 0/60/150/300/500/800/1200/4000ms；30mA 固定 0ms。样本 B-35。'},
+    {id:'abb',name:'ABB Ekip Dip/Touch',img:'附件图/abb-ekip-settings.png',note:'<b>I1</b> 0.4–1 In；<b>I2</b> 1–10 In；<b>I3</b> 1–10 In；<b>I4</b> 0.2–1 In；t2/t4 可调。样本 3/25。'},
+    {id:'sie',name:'西门子 3VC2 ETU',img:'附件图/sie-3vc2-settings.png',note:'<b>Ir</b> 0.4–1 In；<b>tr</b> 12–150s；<b>Isd</b> 2–10 Ir；<b>tsd</b> 0.06–1s；<b>Ii</b> 4–12 Ir；<b>Ig</b> 0.2–1 In；<b>tg</b> 0.4s。样本 2/13。'}
+  ];
+  function renderTripChips(){
+    var el=document.getElementById('trip-chips');
+    if(!el) return;
+    el.innerHTML='';
+    TRIP_SETTINGS.forEach(function(t){
+      var b=document.createElement('button');
+      b.className='acc-chip';b.type='button';b.textContent=t.name;
+      b.onclick=function(){
+        var img=document.getElementById('trip-img');
+        img.src=t.img;img.style.display='block';
+        document.getElementById('trip-note').innerHTML=t.note;
+      };
+      el.appendChild(b);
+    });
+  }
+
   /* tabs */
   var tabs=document.querySelectorAll('.tab');
   tabs.forEach(function(t){
@@ -1253,6 +1314,7 @@
   renderAccChips();
   renderAccMatrix();
   renderAccVisual();
+  renderTripChips();
   document.getElementById('acc-frame-select').onchange=function(){
     accVisualState.frameCat=this.value;
     renderAccVisual();
