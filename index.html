@@ -172,6 +172,8 @@
   .acc-visual-wrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
   @media(max-width:900px){.acc-visual-wrap{grid-template-columns:1fr}}
   .acc-visual-imgbox{position:relative;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:260px}
+  .acc-visual-inner{position:relative;display:block;min-width:100%}
+  .acc-visual-imgbox.scrollable{overflow:auto;max-height:560px}
   .acc-visual-imgbox img{display:block;width:100%;height:auto}
   .acc-visual-note{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;color:var(--ink-2);line-height:1.6}
   .acc-visual-note b{color:var(--ink)}
@@ -554,8 +556,10 @@
         </div>
         <div class="acc-visual-wrap">
           <div class="acc-visual-imgbox" id="acc-visual-imgbox">
-            <img id="acc-visual-img" alt="NSX 附件安装示意" src="">
-            <div id="acc-hotspots"></div>
+            <div class="acc-visual-inner" id="acc-visual-inner">
+              <img id="acc-visual-img" alt="附件安装示意" src="">
+              <div id="acc-hotspots"></div>
+            </div>
           </div>
           <div class="acc-visual-note" id="acc-visual-note">
             点击上方矩阵中的 NSX 单元格，这里会显示样本截图、附件高亮和壳架适配说明。
@@ -1050,6 +1054,9 @@
     '400-630-tm':'附件图/nsx-400-630-tm-flat.png',
     '400-630-el':'附件图/nsx-400-630-el-flat.png',
     'abb':'附件图/abb-acc-table.png',
+    'abb-100':'附件图/abb-xt1-3d.png',
+    'abb-160-250':'附件图/abb-xt2-4-3d.png',
+    'abb-400-630':'附件图/abb-xt5-3d.png',
     'siemens':'附件图/sie-acc-table.png'
   };
   // 只高亮样本已有的文字，不额外画框；l/t/w/h 为图片百分比
@@ -1093,33 +1100,79 @@
       comm:[{l:48.5,t:36.5,w:4.2,h:10.5},{l:70.5,t:35.6,w:5.2,h:8.5}],
       motorop:[{l:20,t:2,w:11.5,h:8.5}],
       handle:[{l:20,t:2,w:11.5,h:8.5}]
+    },
+    'abb-160-250':{
+      aux:[{l:10,t:33,w:8,h:4.5},{l:41,t:33,w:8,h:4.5},{l:72,t:33,w:8,h:4.5}],
+      alarm:[{l:72,t:53,w:6,h:4}],
+      shunt:[{l:40.5,t:11.5,w:10,h:6}],
+      uvr:[{l:40.5,t:11.5,w:10,h:6}],
+      comm:[{l:41,t:69,w:10,h:7},{l:72,t:69,w:11,h:7}],
+      rcd:[]
+    },
+    'abb-100':{
+      aux:[{l:10,t:34,w:8,h:5},{l:10,t:61,w:8,h:5},{l:41,t:61,w:8,h:5}],
+      alarm:[],
+      shunt:[{l:40.5,t:34,w:10,h:6}],
+      uvr:[{l:40.5,t:34,w:10,h:6}],
+      comm:[],
+      rcd:[]
+    },
+    'abb-400-630':{
+      aux:[{l:10,t:34,w:8,h:4.5},{l:41,t:34,w:8,h:4.5},{l:72,t:34,w:8,h:4.5}],
+      alarm:[{l:72,t:45.5,w:6,h:4},{l:10,t:58.5,w:6,h:4}],
+      shunt:[{l:10,t:22.8,w:8,h:5}],
+      uvr:[{l:10,t:22.8,w:8,h:5}],
+      comm:[{l:72,t:52.5,w:10,h:6}],
+      rcd:[]
     }
   };
   var accVisualState={brand:null,frameCat:'100-250',tripCat:'tm',cat:'aux',frame:'100'};
   function accImageKey(){return accVisualState.frameCat+'-'+accVisualState.tripCat;}
   function renderAccVisual(){
     var wrap=document.getElementById('acc-visual-img');
+    var imgbox=document.getElementById('acc-visual-imgbox');
     var hot=document.getElementById('acc-hotspots');
     var note=document.getElementById('acc-visual-note');
     var status=document.getElementById('acc-visual-status');
     if(!accVisualState.brand){
       wrap.style.display='none';
       wrap.removeAttribute('src');
+      imgbox.classList.remove('scrollable');
       hot.innerHTML='';
       status.textContent='等待选择';
       note.innerHTML='点击上方矩阵中的单元格，这里会显示样本截图、附件高亮和壳架适配说明。';
       return;
     }
-    if(accVisualState.brand==='abb'||accVisualState.brand==='siemens'){
+    if(accVisualState.brand==='abb'){
+      var ak='abb-160-250';
+      if(accVisualState.frameCat==='100-250'&&accVisualState.frame==='100') ak='abb-100';
+      if(accVisualState.frameCat==='400-630') ak='abb-400-630';
       wrap.style.display='block';
-      wrap.src=ACC_IMAGES[accVisualState.brand];
-      hot.innerHTML='';
-      status.textContent=accVisualState.brand==='abb'?'ABB XT 样本附件表':'西门子 3VA 样本槽位表';
-      var be=accEntry(accVisualState.brand,accVisualState.frame,accVisualState.cat);
-      note.innerHTML='<b>说明</b>：该品牌样本未提供像 NSX 那样的整体附件安装图，当前展示样本中的附件表/槽位表。<br>'+
+      wrap.src=ACC_IMAGES[ak];
+      imgbox.classList.add('scrollable');
+      var aboxes=(ACC_HOTSPOTS[ak]&&ACC_HOTSPOTS[ak][accVisualState.cat])||[];
+      if(accVisualState.cat==='motorop'||accVisualState.cat==='handle') aboxes=[];
+      hot.innerHTML=aboxes.map(function(b){
+        return '<div class="acc-text-mark active" style="left:'+b.l+'%;top:'+b.t+'%;width:'+b.w+'%;height:'+b.h+'%"></div>';
+      }).join('');
+      status.textContent='ABB XT · 样本附件位置图';
+      var be=accEntry('abb',accVisualState.frame,accVisualState.cat);
+      note.innerHTML='<b>说明</b>：ABB 样本的附件位置图较长，可在图框内上下滚动查看。<br>'+
         (be?'<b>当前附件</b>：'+esc(be.model)+'（最大 '+esc(be.qty)+'）<br><b>样本</b>：'+esc(be.page):'');
       return;
     }
+    if(accVisualState.brand==='siemens'){
+      wrap.style.display='block';
+      wrap.src=ACC_IMAGES['siemens'];
+      imgbox.classList.add('scrollable');
+      hot.innerHTML='';
+      status.textContent='西门子 3VA · 样本槽位表';
+      var se=accEntry('siemens',accVisualState.frame,accVisualState.cat);
+      note.innerHTML='<b>说明</b>：西门子样本以附件槽位表为主，可在图框内上下滚动查看。<br>'+
+        (se?'<b>当前附件</b>：'+esc(se.model)+'（最大 '+esc(se.qty)+'）<br><b>样本</b>：'+esc(se.page):'');
+      return;
+    }
+    imgbox.classList.remove('scrollable');
     wrap.style.display='block';
     var key=accImageKey();
     wrap.src=ACC_IMAGES[key];
