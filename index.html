@@ -175,10 +175,9 @@
   .acc-visual-imgbox img{display:block;width:100%;height:auto}
   .acc-visual-note{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;color:var(--ink-2);line-height:1.6}
   .acc-visual-note b{color:var(--ink)}
-  .acc-hotspot{position:absolute;border:2px solid var(--accent);background:rgba(0,133,45,.12);border-radius:6px;box-shadow:0 0 0 4px rgba(0,133,45,.08);display:none;pointer-events:none}
-  .acc-hotspot.active{display:block;animation:accPulse 1.6s ease-in-out infinite}
-  .acc-hotspot span{position:absolute;top:-22px;left:-2px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:4px;white-space:nowrap}
-  @keyframes accPulse{0%,100%{box-shadow:0 0 0 4px rgba(0,133,45,.08)}50%{box-shadow:0 0 0 8px rgba(0,133,45,.18)}}
+  .acc-text-mark{position:absolute;background:rgba(227,178,75,.55);border-radius:3px;display:none;pointer-events:none;mix-blend-mode:multiply}
+  .acc-text-mark.active{display:block;animation:accTextPulse 1.8s ease-in-out infinite}
+  @keyframes accTextPulse{0%,100%{background:rgba(227,178,75,.40)}50%{background:rgba(227,178,75,.75)}}
 
   /* standards */
   .std-note{font-size:13px;color:var(--ink-2);margin:0 0 14px}
@@ -1046,51 +1045,52 @@
     document.getElementById('acc-matrix').innerHTML=h;
   }
   var ACC_IMAGES={
-    '100-250-tm':'附件图/nsx-100-250-tm.png',
-    '100-250-el':'附件图/nsx-100-250-el.png',
-    '400-630-tm':'附件图/nsx-400-630-tm.png',
-    '400-630-el':'附件图/nsx-400-630-el.png'
+    '100-250-tm':'附件图/nsx-100-250-tm-flat.png',
+    '100-250-el':'附件图/nsx-100-250-el-flat.png',
+    '400-630-tm':'附件图/nsx-400-630-tm-flat.png',
+    '400-630-el':'附件图/nsx-400-630-el-flat.png'
   };
+  // 只高亮样本已有的文字，不额外画框；l/t/w/h 为图片百分比
   var ACC_HOTSPOTS={
     '100-250-tm':{
-      aux:[{l:36,t:34,w:9,h:8,label:'OF1'}],
-      alarm:[{l:38,t:24,w:8,h:6,label:'SD'},{l:57,t:32,w:8,h:7,label:'SDE'}],
-      shunt:[{l:37,t:47,w:11,h:12,label:'MX'}],
-      uvr:[{l:37,t:47,w:11,h:12,label:'MN'}],
-      rcd:[{l:59,t:74,w:7,h:11,label:'SDV'}],
-      comm:[{l:55,t:70,w:9,h:9,label:'通信/SDx'}],
-      motorop:[{l:40,t:12,w:20,h:10,label:'电操'}],
-      handle:[{l:40,t:12,w:20,h:10,label:'手柄'}]
+      aux:[{l:4.3,t:29.5,w:3.4,h:4.8},{l:23.3,t:29.5,w:3.4,h:4.8}],
+      alarm:[{l:4.3,t:36,w:3.0,h:4.5},{l:23.3,t:36,w:3.4,h:4.5}],
+      shunt:[{l:4.3,t:45.8,w:3.4,h:4.5}],
+      uvr:[{l:4.3,t:41.5,w:3.4,h:4.2}],
+      rcd:[{l:23.3,t:79.7,w:3.4,h:4.5}],
+      comm:[],
+      motorop:[{l:15.5,t:5.5,w:11.5,h:9.5}],
+      handle:[{l:15.5,t:5.5,w:11.5,h:9.5}]
     },
     '100-250-el':{
-      aux:[{l:35,t:48,w:8,h:8,label:'OF'}],
-      alarm:[{l:60,t:40,w:8,h:10,label:'SD/SDE'}],
-      shunt:[{l:36,t:55,w:8,h:12,label:'MX'}],
-      uvr:[{l:36,t:55,w:8,h:12,label:'MN'}],
-      rcd:[{l:55,t:75,w:8,h:10,label:'SDV'}],
-      comm:[{l:34,t:35,w:8,h:15,label:'SDx/SDTAM'}],
-      motorop:[{l:40,t:12,w:20,h:10,label:'电操'}],
-      handle:[{l:40,t:12,w:20,h:10,label:'手柄'}]
+      aux:[{l:4.5,t:32,w:3.4,h:4.8},{l:23.5,t:32,w:3.4,h:4.8}],
+      alarm:[{l:4.5,t:39,w:3.0,h:4.5},{l:23.5,t:39,w:3.4,h:4.5}],
+      shunt:[{l:4.5,t:51.8,w:3.4,h:4.5}],
+      uvr:[{l:4.5,t:45.8,w:3.4,h:4.2}],
+      rcd:[],
+      comm:[{l:42.7,t:36.5,w:4.2,h:10.5},{l:63,t:35.5,w:5.2,h:8.5}],
+      motorop:[{l:15,t:5.5,w:11.5,h:9.5},{l:55,t:5.5,w:11.5,h:9.5}],
+      handle:[{l:15,t:5.5,w:11.5,h:9.5},{l:55,t:5.5,w:11.5,h:9.5}]
     },
     '400-630-tm':{
-      aux:[{l:28,t:32,w:8,h:18,label:'OF1–OF3'}],
-      alarm:[{l:55,t:24,w:8,h:6,label:'SD'},{l:58,t:32,w:8,h:7,label:'SDE'}],
-      shunt:[{l:28,t:47,w:8,h:12,label:'MX'}],
-      uvr:[{l:28,t:47,w:8,h:12,label:'MN'}],
-      rcd:[{l:55,t:78,w:7,h:10,label:'SDV'}],
-      comm:[{l:55,t:70,w:9,h:10,label:'通信'}],
-      motorop:[{l:35,t:8,w:20,h:10,label:'电操'}],
-      handle:[{l:35,t:8,w:20,h:10,label:'手柄'}]
+      aux:[{l:4.5,t:30.5,w:3.4,h:4.2},{l:4.5,t:35.5,w:3.4,h:4.2},{l:4.5,t:40.4,w:3.4,h:4.2}],
+      alarm:[{l:32,t:30.5,w:3.2,h:4.2},{l:32,t:40.4,w:3.4,h:4.2}],
+      shunt:[{l:4.5,t:56,w:3.4,h:4.5}],
+      uvr:[{l:4.5,t:51.1,w:3.4,h:4.2}],
+      rcd:[{l:32,t:88,w:3.4,h:4.0}],
+      comm:[],
+      motorop:[{l:20.5,t:4.3,w:11.5,h:8.5}],
+      handle:[{l:20.5,t:4.3,w:11.5,h:8.5}]
     },
     '400-630-el':{
-      aux:[{l:35,t:45,w:8,h:10,label:'OF'}],
-      alarm:[{l:60,t:40,w:8,h:10,label:'SD/SDE'}],
-      shunt:[{l:35,t:55,w:8,h:12,label:'MX'}],
-      uvr:[{l:35,t:55,w:8,h:12,label:'MN'}],
-      rcd:[{l:55,t:75,w:8,h:10,label:'SDV'}],
-      comm:[{l:34,t:35,w:8,h:15,label:'SDx/SDTAM'}],
-      motorop:[{l:40,t:10,w:20,h:10,label:'电操'}],
-      handle:[{l:40,t:10,w:20,h:10,label:'手柄'}]
+      aux:[{l:4.5,t:21,w:3.4,h:4.2},{l:4.5,t:27,w:3.4,h:4.2},{l:4.5,t:33,w:3.4,h:4.2}],
+      alarm:[{l:32,t:21,w:3.2,h:4.2},{l:32,t:33,w:3.4,h:4.2}],
+      shunt:[{l:4.5,t:52,w:3.4,h:4.5}],
+      uvr:[{l:4.5,t:46,w:3.4,h:4.2}],
+      rcd:[],
+      comm:[{l:48.5,t:36.5,w:4.2,h:10.5},{l:70.5,t:35.6,w:5.2,h:8.5}],
+      motorop:[{l:20,t:2,w:11.5,h:8.5}],
+      handle:[{l:20,t:2,w:11.5,h:8.5}]
     }
   };
   var accVisualState={brand:null,frameCat:'100-250',tripCat:'tm',cat:'aux',frame:'100'};
@@ -1118,8 +1118,9 @@
     wrap.src=ACC_IMAGES[key];
     var e=accEntry('nsx',accVisualState.frame,accVisualState.cat);
     var boxes=(ACC_HOTSPOTS[key]&&ACC_HOTSPOTS[key][accVisualState.cat])||[];
+    if(accVisualState.cat==='motorop'||accVisualState.cat==='handle') boxes=[];
     hot.innerHTML=boxes.map(function(b){
-      return '<div class="acc-hotspot active" style="left:'+b.l+'%;top:'+b.t+'%;width:'+b.w+'%;height:'+b.h+'%"><span>'+esc(b.label)+'</span></div>';
+      return '<div class="acc-text-mark active" style="left:'+b.l+'%;top:'+b.t+'%;width:'+b.w+'%;height:'+b.h+'%"></div>';
     }).join('');
     var f1=e&&e.frames.some(function(x){return x==='100'||x==='160'||x==='250';});
     var f2=e&&e.frames.some(function(x){return x==='400'||x==='630';});
@@ -1130,6 +1131,7 @@
         '<b>当前选择</b>：NSX · '+accVisualState.frameCat+'A · '+tripLabel+'<br>'+
         '<b>附件</b>：'+esc(e.model)+'（最大 '+esc(e.qty)+'）<br>'+
         '<b>说明</b>：'+esc(e.note)+'<br>'+
+        (accVisualState.cat==='motorop'||accVisualState.cat==='handle'?'<b>提示</b>：电操/手柄示意暂不做，先看上方表格数据。<br>':'')+
         '<b>样本</b>：'+esc(e.page);
     }else{
       note.innerHTML='当前壳架/附件组合在矩阵中没有数据，请换一个单元格。';
