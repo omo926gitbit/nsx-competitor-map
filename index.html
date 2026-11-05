@@ -389,7 +389,7 @@
           <table>
             <thead><tr><th>品牌</th><th>单磁式（电动机保护）</th><th>热磁式（配电保护）</th><th>电子式（LSI/LSIG/测量）</th><th>隔离开关</th></tr></thead>
             <tbody>
-              <tr><td class="rowhead">施耐德 NSX</td><td class="cell">MA 单磁脱扣器（6–14×In）</td><td class="cell">TM-D 热磁脱扣器</td><td class="cell">Micrologic 1/2/5/6；电机型 1.3M / 2.2M / 6E-M</td><td class="cell">INS / NSX NA 负荷开关</td></tr>
+              <tr><td class="rowhead">施耐德 NSX</td><td class="cell">MA 单磁脱扣器（6–14×In）</td><td class="cell">TM-D 热磁脱扣器</td><td class="cell">配电：Micrologic 2.2/2.3；5.2B/5.3B、5.2A/5.3A、5.2E/5.3E；6.2B/6.3B、6.2A/6.3A、6.2E/6.3E<br>电机：1.3M、2.2M/2.3M、6.2E-M/6.3E-M<br>漏电：4.2/4.3、7.2E/7.3E</td><td class="cell">INS / NSX NA 负荷开关</td></tr>
               <tr><td class="rowhead">ABB Tmax XT</td><td class="cell">MF / MA（XT1–XT5，至 1600A）</td><td class="cell">TMD / TMA</td><td class="cell">Ekip Dip / Touch / Hi-Touch</td><td class="cell">XT1D / XT3D / XT4D / XT7D</td></tr>
               <tr><td class="rowhead">西门子 3VA/3VC2</td><td class="cell">3VA1 TM110M / TM120M；3VC2 MA</td><td class="cell">3VA1 TM210/220/240；3VC2 TMA/TMF</td><td class="cell">3VA2 ETU3/5/8；3VC2 ETU11/12</td><td class="cell">3VA1 SD100 / 3VA2 隔离开关</td></tr>
               <tr><td class="rowhead">伊顿 NZM / Power Defense</td><td class="cell">NZM S / M（8–14×In）；Power Defense 单磁式</td><td class="cell">NZM AE；Power Defense 热磁式</td><td class="cell">NZM AE/VE/ME；Power Defense PXR</td><td class="cell">NZM N1–N4；Power Defense 隔离开关</td></tr>
@@ -441,7 +441,7 @@
           <table>
             <thead><tr><th>品牌</th><th>电子脱扣器</th><th>特色</th><th>弱项</th></tr></thead>
             <tbody>
-              <tr><td class="rowhead">施耐德</td><td class="cell">Micrologic 1/2/5/6 + MA 单磁</td><td class="cell">模块化、Micrologic Vigi/G 集成度高</td><td class="cell">高端功能需授权/付费；部分功能依赖辅助电源</td></tr>
+              <tr><td class="rowhead">施耐德</td><td class="cell">Micrologic 2/5/6 系列（2.2/2.3、5.2/5.3 B/A/E、6.2/6.3 B/A/E）+ MA 单磁</td><td class="cell">模块化、Micrologic 6 系列 LSIG 集成度高</td><td class="cell">高端功能需授权/付费；部分功能依赖辅助电源</td></tr>
               <tr><td class="rowhead">ABB</td><td class="cell">Ekip Dip / Touch / Hi-Touch</td><td class="cell">软件可升级（ABB Marketplace），Ability 云直连</td><td class="cell">层级命名复杂，现场升级依赖客户 IT 成熟度</td></tr>
               <tr><td class="rowhead">西门子</td><td class="cell">ETU3/5/8 系列 + powerconfig</td><td class="cell">罗氏线圈测量精度高；与 SIMATIC/Profinet 生态绑定</td><td class="cell">ETU 显示与通信模块需额外配置，入门门槛高</td></tr>
               <tr><td class="rowhead">伊顿</td><td class="cell">NZM AE/VE/ME + Power Defense PXR</td><td class="cell">PXR 内置电能计量、健康状态、ZSI；全球认证</td><td class="cell">数字化生态在国内项目端声量小；样本通信协议以 PROFIBUS-DP 为主</td></tr>
@@ -765,11 +765,11 @@
       '630':{nsx:'50 / 70 / 100 / 150',abb:'36 / 50 / 70 / 120 / 150 / 200',siemens:'16 / 25 / 36 / 50 / 55 / 70 / 85 / 110 / 150 / 200',eaton:'36 / 50 / 70 / 150',legrand:'36 / 50 / 70 / 100'}
     }},
     {id:'trip',label:'脱扣器',unit:'',values:{
-      '100':{nsx:'TM-D · Micrologic 2',abb:'TMD/TMA · Ekip Dip',siemens:'TM210/220 · ETU3/5/8 · TMA/MA/ETU11',eaton:'热磁 / 单磁 (NZM1/PDC1)',legrand:'TMF/TMA/MA (DRX125HP/TMX125)'},
-      '160':{nsx:'TM-D · Micrologic 2',abb:'TMD/TMA · Ekip Dip/Touch',siemens:'TM210/220/240 · ETU3/5/8 · TMA/MA/ETU11/12',eaton:'热磁 / 单磁 (NZM1·2/PDC1·2)',legrand:'TMF/TMA/MA/ELA (DRX250HP/TMX250)'},
-      '250':{nsx:'TM-D · Micrologic 2·5·6',abb:'TMD/TMA · Ekip Dip/Touch',siemens:'TM210/220/240 · ETU3/5/8 · TMA/MA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM2/PDC2)',legrand:'TMF/TMA/MA/ELA (DRX250HP/TMX250HP)'},
-      '400':{nsx:'TM-D · Micrologic 2·5·6',abb:'TMD/TMA · Ekip Touch/Hi-Touch',siemens:'TM240 · ETU3/5/8 · TMA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM3/PDC3)',legrand:'TMF/TMA/MA/ELA (DRX400HP/TMX400)'},
-      '630':{nsx:'TM-D · Micrologic 2·5·6',abb:'TMD/TMA · Ekip Touch/Hi-Touch',siemens:'TM240 · ETU3/5/8 · TMA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM3/PDC3)',legrand:'TMF/TMA/MA/ELA (DRX630HP/TMX630)'}
+      '100':{nsx:'TM-D · Mic 2.2 · 5.2B/A/E · 6.2B/A/E',abb:'TMD/TMA · Ekip Dip',siemens:'TM210/220 · ETU3/5/8 · TMA/MA/ETU11',eaton:'热磁 / 单磁 (NZM1/PDC1)',legrand:'TMF/TMA/MA (DRX125HP/TMX125)'},
+      '160':{nsx:'TM-D · Mic 2.2 · 5.2B/A/E · 6.2B/A/E',abb:'TMD/TMA · Ekip Dip/Touch',siemens:'TM210/220/240 · ETU3/5/8 · TMA/MA/ETU11/12',eaton:'热磁 / 单磁 (NZM1·2/PDC1·2)',legrand:'TMF/TMA/MA/ELA (DRX250HP/TMX250)'},
+      '250':{nsx:'TM-D · Mic 2.2 · 5.2B/A/E · 6.2B/A/E',abb:'TMD/TMA · Ekip Dip/Touch',siemens:'TM210/220/240 · ETU3/5/8 · TMA/MA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM2/PDC2)',legrand:'TMF/TMA/MA/ELA (DRX250HP/TMX250HP)'},
+      '400':{nsx:'TM-D · Mic 2.3 · 5.3B/A/E · 6.3B/A/E',abb:'TMD/TMA · Ekip Touch/Hi-Touch',siemens:'TM240 · ETU3/5/8 · TMA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM3/PDC3)',legrand:'TMF/TMA/MA/ELA (DRX400HP/TMX400)'},
+      '630':{nsx:'TM-D · Mic 2.3 · 5.3B/A/E · 6.3B/A/E',abb:'TMD/TMA · Ekip Touch/Hi-Touch',siemens:'TM240 · ETU3/5/8 · TMA/ETU11/12',eaton:'热磁 / 单磁 / 电子 (NZM3/PDC3)',legrand:'TMF/TMA/MA/ELA (DRX630HP/TMX630)'}
     }},
     {id:'cert',label:'认证',unit:'',values:{
       '100':{nsx:'CCC · CE',abb:'CE · CCC',siemens:'CCC · CE',eaton:'CCC · CE · UL/CSA',legrand:'CCC · CE'},
