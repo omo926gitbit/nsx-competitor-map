@@ -249,7 +249,7 @@
 <nav class="tabbar">
   <div class="wrap tabs" role="tablist" aria-label="板块导航">
     <button class="tab" data-tab="overview" role="tab" aria-selected="true">总览<span class="n">01</span></button>
-    <button class="tab" data-tab="functions" role="tab" aria-selected="false">功能图谱<span class="n">02</span></button>
+    <button class="tab" data-tab="functions" role="tab" aria-selected="false">基础参数<span class="n">02</span></button>
     <button class="tab" data-tab="industries" role="tab" aria-selected="false">行业映射<span class="n">03</span></button>
     <button class="tab" data-tab="standards" role="tab" aria-selected="false">标准认证<span class="n">04</span></button>
     <button class="tab" data-tab="mapping" role="tab" aria-selected="false">系列对标<span class="n">05</span></button>
@@ -291,9 +291,9 @@
     </div>
   </section>
 
-  <!-- 02 功能图谱 -->
+  <!-- 02 基础参数 -->
   <section class="board" data-board="functions">
-    <div class="board-head"><h2>功能图谱</h2><span class="hint">10 项 4 档 · 五段式深挖</span></div>
+    <div class="board-head"><h2>基础参数</h2><span class="hint">电压 / 绝缘 / 分断 + 10 项功能维度</span></div>
     <p class="lead">每条功能按同一链条拆解：<b>需求 → 标准依据 → 实现载体 → 选型要点 → 厂家实现对比</b>。这是整张地图的价值中枢。</p>
     <div id="fn-list"></div>
   </section>
@@ -366,7 +366,7 @@
   <!-- 05 系列对标 -->
   <section class="board" data-board="mapping">
     <div class="board-head"><h2>系列对标</h2><span class="hint">功能的底层支撑 · NSX 壳架为行</span></div>
-    <p class="lead">功能图谱回答「要什么能力」，系列对标回答「用哪款产品」。先对齐系列映射，再铺电气参数。</p>
+    <p class="lead">基础参数回答「电气底子够不够」，系列对标回答「用哪款产品」。先对齐系列映射，再铺电气参数。</p>
     <div class="panel">
       <div class="panel-pad">
         <p class="panel-title">系列映射</p>
@@ -612,7 +612,7 @@
   <!-- 09 结论应对 -->
   <section class="board" data-board="strategy">
     <div class="board-head"><h2>结论与应对</h2><span class="hint">参数 + 行业 + 价格落地后填充</span></div>
-    <p class="lead">把功能图谱的厂家差异、行业映射的优先级、价格数据汇总，形成 NSX 相对优劣势与可执行建议。</p>
+    <p class="lead">把基础参数与功能维度的厂家差异、行业映射的优先级、价格数据汇总，形成 NSX 相对优劣势与可执行建议。</p>
     <div class="swot">
       <div class="box adv"><h3>优势</h3><p>待填充——NSX 领先的维度（分断、电子脱扣、漏电模块体系、数字化等）。</p></div>
       <div class="box weak"><h3>劣势</h3><p>待填充——NSX 落后维度与价格敏感区。</p></div>
@@ -661,7 +661,19 @@
      std:'GB/T 14048.2 附录A（选择性/级联）；Icu / Ics / Icw 定义。',
      impl:'高分断档（F/N/H/L）、限流型结构、选择性表与级联表（能量配合）。',
      sel:'Icu ≥ 预期短路电流；全/部分选择性；级联借上级限流降低下级分断需求。',
-     cmp:[['nsx','NSX100–630：N/H/L 36–150kA @415V；选择性表 / 级联表','verified'],['abb','XT1–XT7：N/S/H/L/V/X 18–200kA @415V；Tmax 选择性表','verified'],['siemens','3VA1 16–110kA / 3VA2 55–200kA / 3VC2 25–55kA @415V','verified'],['eaton','NZM 25–150kA / Power Defense 25–150kA @415V','verified'],['legrand','DRX 36–100kA / TMX 36–70kA @415V','verified']]},
+     cmp:[['nsx','NSX100–630：N/H/L 36–150kA @415V；选择性表 / 级联表','verified'],['abb','XT1–XT7：N/S/H/L/V/X 18–200kA @415V；Tmax 选择性表','verified'],['siemens','3VA1 16–110kA / 3VA2 55–200kA / 3VC2 25–55kA @415V','verified'],['eaton','NZM 25–150kA / Power Defense 25–150kA @415V','verified'],['legrand','DRX 36–100kA / TMX 36–70kA @415V','verified']],
+     x:[{t:'table',title:'关键电压与绝缘参数',src:'Ue / Ui / Uimp / Icu @220 / 415 / 690 · 数值为系列范围，精确值按壳架与分断等级查样本',
+       head:['系列','Ue AC','Ui','Uimp','Icu @220/240V','Icu @380/415V','Icu @660/690V'],
+       rows:[
+        ['NSX100–250','690V','800V','8kV','40–200kA','25–200kA','8–100kA'],
+        ['NSX400–630','690V','800V','8kV','40–200kA','36–200kA','10–100kA'],
+        ['ABB XT1','690V','800V','8kV','25–100kA','18–70kA','3–10kA'],
+        ['ABB XT2–XT4','690V','800/1000V','8kV','50–200kA','36–200kA','5–100kA'],
+        ['ABB XT5/XT6','690V','1000V','8kV','70–200kA','36–200kA','20–100kA'],
+        ['西门子 3VA1','690V','800V','8kV','25–150kA','16–110kA','5–10kA'],
+        ['西门子 3VA2','690V','800V','8kV','85–200kA','55–200kA','2–85kA'],
+        ['西门子 3VC2','400V','800V','8kV','25kA','25–55kA','—']
+       ]}]},
     {tier:1,name:'接地故障保护（G）',sub:'LSIG 中的 G',
      need:'切除不足以触发短路瞬时的小电流接地故障，防电弧火灾与设备损坏。',
      std:'电子脱扣器 G 保护；GB/T 14048.2。注意：Micrologic 6 = LSIG（G 保护）；Micrologic 7E / 4.x = LSIR / LS0IR（剩余电流 R 保护），不是 G 保护。',
