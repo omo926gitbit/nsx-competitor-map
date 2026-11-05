@@ -535,7 +535,7 @@
 
     <div class="panel" id="acc-visual-panel">
       <div class="panel-pad">
-        <p class="panel-title">安装示意（NSX 样本截图）</p>
+        <p class="panel-title">安装示意（样本截图）</p>
         <p class="panel-sub">先选附件类别 → 点矩阵里的 NSX 单元格 → 选壳架和脱扣单元 → 查看高亮位置</p>
         <div class="acc-visual-controls">
           <label>壳架
@@ -1048,7 +1048,9 @@
     '100-250-tm':'附件图/nsx-100-250-tm-flat.png',
     '100-250-el':'附件图/nsx-100-250-el-flat.png',
     '400-630-tm':'附件图/nsx-400-630-tm-flat.png',
-    '400-630-el':'附件图/nsx-400-630-el-flat.png'
+    '400-630-el':'附件图/nsx-400-630-el-flat.png',
+    'abb':'附件图/abb-acc-table.png',
+    'siemens':'附件图/sie-acc-table.png'
   };
   // 只高亮样本已有的文字，不额外画框；l/t/w/h 为图片百分比
   var ACC_HOTSPOTS={
@@ -1101,19 +1103,24 @@
     var note=document.getElementById('acc-visual-note');
     var status=document.getElementById('acc-visual-status');
     if(!accVisualState.brand){
+      wrap.style.display='none';
       wrap.removeAttribute('src');
       hot.innerHTML='';
       status.textContent='等待选择';
-      note.innerHTML='点击上方矩阵中的 NSX 单元格，这里会显示样本截图、附件高亮和壳架适配说明。';
+      note.innerHTML='点击上方矩阵中的单元格，这里会显示样本截图、附件高亮和壳架适配说明。';
       return;
     }
-    if(accVisualState.brand!=='nsx'){
-      wrap.removeAttribute('src');
+    if(accVisualState.brand==='abb'||accVisualState.brand==='siemens'){
+      wrap.style.display='block';
+      wrap.src=ACC_IMAGES[accVisualState.brand];
       hot.innerHTML='';
-      status.textContent='暂不支持';
-      note.innerHTML='当前版本只做了 NSX 的样本截图；ABB XT / 西门子 3VA 的安装示意下一步补充。';
+      status.textContent=accVisualState.brand==='abb'?'ABB XT 样本附件表':'西门子 3VA 样本槽位表';
+      var be=accEntry(accVisualState.brand,accVisualState.frame,accVisualState.cat);
+      note.innerHTML='<b>说明</b>：该品牌样本未提供像 NSX 那样的整体附件安装图，当前展示样本中的附件表/槽位表。<br>'+
+        (be?'<b>当前附件</b>：'+esc(be.model)+'（最大 '+esc(be.qty)+'）<br><b>样本</b>：'+esc(be.page):'');
       return;
     }
+    wrap.style.display='block';
     var key=accImageKey();
     wrap.src=ACC_IMAGES[key];
     var e=accEntry('nsx',accVisualState.frame,accVisualState.cat);
