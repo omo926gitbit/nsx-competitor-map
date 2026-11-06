@@ -78,7 +78,7 @@
   .board-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
   .board-head h2{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:0}
   .board-head .hint{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
-  .lead{color:var(--ink-2);max-width:70ch;margin:4px 0 20px}
+  .lead{display:none}
 
   .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
   .tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
@@ -248,22 +248,18 @@
 
 <nav class="tabbar">
   <div class="wrap tabs" role="tablist" aria-label="板块导航">
-    <button class="tab" data-tab="overview" role="tab" aria-selected="true">总览<span class="n">01</span></button>
-    <button class="tab" data-tab="functions" role="tab" aria-selected="false">基础参数<span class="n">02</span></button>
-    <button class="tab" data-tab="industries" role="tab" aria-selected="false">行业映射<span class="n">03</span></button>
-    <button class="tab" data-tab="standards" role="tab" aria-selected="false">标准认证<span class="n">04</span></button>
-    <button class="tab" data-tab="mapping" role="tab" aria-selected="false">系列对标<span class="n">05</span></button>
-    <button class="tab" data-tab="profiles" role="tab" aria-selected="false">竞品档案<span class="n">06</span></button>
-    <button class="tab" data-tab="insights" role="tab" aria-selected="false">五强洞察<span class="n">07</span></button>
-    <button class="tab" data-tab="accessories" role="tab" aria-selected="false">附件体系<span class="n">08</span></button>
-    <button class="tab" data-tab="strategy" role="tab" aria-selected="false">结论应对<span class="n">09</span></button>
+    <button class="tab active" data-tab="functions" role="tab" aria-selected="true">关键参数<span class="n">01</span></button>
+    <button class="tab" data-tab="tripunits" role="tab" aria-selected="false">脱扣单元<span class="n">02</span></button>
+    <button class="tab" data-tab="accessories" role="tab" aria-selected="false">附件<span class="n">03</span></button>
+    <button class="tab" data-tab="price" role="tab" aria-selected="false">价格<span class="n">04</span></button>
+    <button class="tab" data-tab="industries" role="tab" aria-selected="false">行业<span class="n">05</span></button>
   </div>
 </nav>
 
 <main class="wrap">
 
   <!-- 01 总览 -->
-  <section class="board active" data-board="overview">
+  <section class="board" data-board="overview">
     <div class="board-head"><h2>总览</h2><span class="hint">三维框架 · 坐标为初步判断待核对</span></div>
     <p class="lead">三根轴定义整张地图：<b>功能</b>（什么能力）、<b>行业</b>（什么场景）、<b>标准/认证</b>（什么市场）。功能轴按电气行业重要性分 4 档。</p>
     <div class="axes">
@@ -292,16 +288,54 @@
   </section>
 
   <!-- 02 基础参数 -->
-  <section class="board" data-board="functions">
-    <div class="board-head"><h2>基础参数</h2><span class="hint">电压 / 绝缘 / 分断 + 10 项功能维度</span></div>
+  <section class="board active" data-board="functions">
+    <div class="board-head"><h2>关键参数</h2><span class="hint">NSX · ABB · 西门子</span></div>
     <p class="lead">每条功能按同一链条拆解：<b>需求 → 标准依据 → 实现载体 → 选型要点 → 厂家实现对比</b>。这是整张地图的价值中枢。</p>
     <div id="fn-list"></div>
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">系列映射</p>
+        <div class="tbl-scroll" id="map-table"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">参数对标</p>
+        <div class="dims" id="dims"></div>
+        <div class="tbl-scroll" id="param-table"></div>
+      </div>
+    </div>
   </section>
 
   <!-- 03 行业映射 -->
+  <section class="board" data-board="price">
+    <div class="board-head"><h2>价格</h2><span class="hint">表价 / 折扣 / 净价</span></div>
+    <div class="panel">
+      <div class="panel-pad">
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>品牌</th><th>系列</th><th>壳架</th><th>脱扣器</th><th>表价</th><th>折扣</th><th>净价</th><th>备注</th></tr></thead>
+            <tbody>
+              <tr><td class="rowhead">施耐德</td><td class="cell">NSX100</td><td class="cell">100A</td><td class="cell">TMD / Micrologic</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">价格表 2026-01-31</td></tr>
+              <tr><td class="rowhead">施耐德</td><td class="cell">NSX160</td><td class="cell">160A</td><td class="cell">TMD / Micrologic</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">价格表 2026-01-31</td></tr>
+              <tr><td class="rowhead">施耐德</td><td class="cell">NSX250</td><td class="cell">250A</td><td class="cell">TMD / Micrologic</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">价格表 2026-01-31</td></tr>
+              <tr><td class="rowhead">施耐德</td><td class="cell">NSX400</td><td class="cell">400A</td><td class="cell">TMD / Micrologic</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">价格表 2026-01-31</td></tr>
+              <tr><td class="rowhead">施耐德</td><td class="cell">NSX630</td><td class="cell">630A</td><td class="cell">TMD / Micrologic</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">价格表 2026-01-31</td></tr>
+              <tr><td class="rowhead">ABB</td><td class="cell">Tmax XT1</td><td class="cell">160A</td><td class="cell">TMD/TMA / Ekip</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">ABB order file 20260826</td></tr>
+              <tr><td class="rowhead">ABB</td><td class="cell">Tmax XT2/XT4</td><td class="cell">160/250A</td><td class="cell">TMD/TMA / Ekip</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">ABB order file 20260826</td></tr>
+              <tr><td class="rowhead">ABB</td><td class="cell">Tmax XT5</td><td class="cell">400/630A</td><td class="cell">TMD/TMA / Ekip</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">ABB order file 20260826</td></tr>
+              <tr><td class="rowhead">西门子</td><td class="cell">3VA1</td><td class="cell">100–630A</td><td class="cell">TM210/220/240</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">待收集</td></tr>
+              <tr><td class="rowhead">西门子</td><td class="cell">3VA2</td><td class="cell">100–630A</td><td class="cell">ETU3/5/8</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">待收集</td></tr>
+              <tr><td class="rowhead">西门子</td><td class="cell">3VC2</td><td class="cell">100–630A</td><td class="cell">TMA/MA/ETU</td><td class="cell">待导入</td><td class="cell">—</td><td class="cell">—</td><td class="cell">待收集</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="board" data-board="industries">
-    <div class="board-head"><h2>行业映射</h2><span class="hint">4 行业 × 高优先级功能 · 骨架待深挖</span></div>
-    <p class="lead">每个行业把对应功能顶到前面。行业深挖（含各行业的分断/选型/标准细节）留待后续专项。</p>
+    <div class="board-head"><h2>行业</h2><span class="hint">4 个行业</span></div>
     <div class="ind-cards" id="ind-cards"></div>
   </section>
 
@@ -364,24 +398,8 @@
   </section>
 
   <!-- 05 系列对标 -->
-  <section class="board" data-board="mapping">
-    <div class="board-head"><h2>系列对标</h2><span class="hint">功能的底层支撑 · NSX 壳架为行</span></div>
-    <p class="lead">基础参数回答「电气底子够不够」，系列对标回答「用哪款产品」。先对齐系列映射，再铺电气参数。</p>
-    <div class="panel">
-      <div class="panel-pad">
-        <p class="panel-title">系列映射</p>
-        <p class="panel-sub">FRAME → SERIES · 待核对</p>
-        <div class="tbl-scroll" id="map-table"></div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-pad">
-        <p class="panel-title">参数对标</p>
-        <p class="panel-sub">切换维度 · NSX 已填初值待核对 · 竞品待采集</p>
-        <div class="dims" id="dims"></div>
-        <div class="tbl-scroll" id="param-table"></div>
-      </div>
-    </div>
+  <section class="board" data-board="tripunits">
+    <div class="board-head"><h2>脱扣单元</h2><span class="hint">类型 · 整定值 · 差异化</span></div>
 
     <div class="panel">
       <div class="panel-pad">
@@ -435,6 +453,41 @@
             <div class="acc-visual-inner"><img id="trip-img" alt="脱扣单元整定值" style="display:none"></div>
           </div>
           <div class="acc-visual-note" id="trip-note">点击上方按钮查看样本整定页。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">整定差异化对比</p>
+        <p class="panel-sub">NSX Mic5/6 · ABB Ekip Dip/Touch · 西门子 3VC2 ETU · 按单项判断优势方</p>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>整定项</th><th>NSX Mic5/6</th><th>ABB Ekip Dip</th><th>ABB Ekip Touch</th><th>西门子 3VC2 ETU</th><th>优势方</th></tr></thead>
+            <tbody>
+              <tr><td class="rowhead">Ir</td><td class="cell">0.4–1 In；按键微调 1A</td><td class="cell">0.4–1 In；步长 0.04/0.02</td><td class="cell">0.4–1 In；步长 0.001</td><td class="cell">0.4–1 In</td><td><span class="st verified">ABB Touch</span></td></tr>
+              <tr><td class="rowhead">Ii</td><td class="cell">1.5–15 In（40–160A）；1.5–12 In（250–400A）；1.5–11 In（630A）</td><td class="cell">1–10 In；离散档</td><td class="cell">1.5–10 In；步长 0.1</td><td class="cell">4–12 Ir</td><td><span class="st verified">NSX</span></td></tr>
+              <tr><td class="rowhead">Isd</td><td class="cell">1.5–10 Ir；步长 0.5 Ir</td><td class="cell">1–10 In；离散档</td><td class="cell">0.6–10 In；步长 0.1</td><td class="cell">2–10 Ir</td><td><span class="st verified">ABB Touch</span></td></tr>
+              <tr><td class="rowhead">tsd</td><td class="cell">0–0.4s</td><td class="cell">0.1–0.2s</td><td class="cell">0.05–1s</td><td class="cell">0.06–1s</td><td><span class="st verified">ABB Touch / 西门子</span></td></tr>
+              <tr><td class="rowhead">Ig</td><td class="cell">0.2–1 In；步长 0.05 In</td><td class="cell">0.2–1 In；离散档</td><td class="cell">0.1–1 In；步长 0.001</td><td class="cell">0.2–1 In</td><td><span class="st verified">ABB Touch</span></td></tr>
+              <tr><td class="rowhead">tg</td><td class="cell">0–0.4s</td><td class="cell">0.1–0.8s</td><td class="cell">0.1–0.8s</td><td class="cell">0.4s（样本）</td><td><span class="st verified">ABB</span></td></tr>
+              <tr><td class="rowhead">整定方式</td><td class="cell">旋钮 + 按键 + EPC 软件</td><td class="cell">拨码</td><td class="cell">屏幕 + 软件</td><td class="cell">旋钮/拨码</td><td><span class="st verified">ABB Touch</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="panel-sub" style="margin-top:10px;margin-bottom:0">注：3VA2 ETU560/860 的完整整定范围样本未给全，标“待核对”，不写成确定值。</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-pad">
+        <p class="panel-title">差异化植入点</p>
+        <p class="panel-sub">把参数差异转成选型话术 · 先按单项优势，不包装成整体碾压</p>
+        <div class="ind-cards">
+          <div class="ind-card"><h3>NSX：Ii 1.5–15 In 范围最宽</h3><div class="trait">适用高启动电流、电机类负载</div><p style="font-size:13px;color:var(--ink-2);margin:0">话术：同样 160A 壳架，NSX 的 Ii 可下探到 1.5In，躲启动电流更灵活；ABB Touch 1.5–10In、西门子 3VC2 4–12Ir，低端不如 NSX。</p></div>
+          <div class="ind-card"><h3>ABB：Ekip Touch 0.001 In 精细整定</h3><div class="trait">复杂工程、精细配合</div><p style="font-size:13px;color:var(--ink-2);margin:0">话术：需要按实际负荷精确整定时，ABB Touch 的步长最细；NSX 更适合旋钮快速整定 + 软件微调。</p></div>
+          <div class="ind-card"><h3>西门子：tsd 0.06–1s 时间选择性</h3><div class="trait">上下级时间配合</div><p style="font-size:13px;color:var(--ink-2);margin:0">话术：需要长延时短延时配合时，3VC2 的 tsd 上限到 1s；NSX 为 0–0.4s，选型时要提前核算级差。</p></div>
+          <div class="ind-card"><h3>NSX：Mic5/6 同平台，6B 多 Ig</h3><div class="trait">选型简化、备件通用</div><p style="font-size:13px;color:var(--ink-2);margin:0">话术：5B 为 LSI、6B 为 LSIG，两者整定逻辑与附件体系一致；项目从 5 升级到 6 时只增加 Ig/tg，不需要换平台。</p></div>
         </div>
       </div>
     </div>
@@ -550,8 +603,7 @@
 
   <!-- 08 附件体系 -->
   <section class="board" data-board="accessories">
-    <div class="board-head"><h2>附件体系</h2><span class="hint">NSX · ABB XT · 西门子 3VA · 壳架 × 附件矩阵</span></div>
-    <p class="lead">按 8 类常用附件归集，先看「壳架能不能装、能装几个、装什么型号」，再看指示触点的功能细分。SDE 适配器按壳架 + 脱扣器类型区分，不默认所有 SDE 都要适配器。</p>
+    <div class="board-head"><h2>附件</h2><span class="hint">NSX · ABB XT · 西门子 3VA</span></div>
 
     <div class="panel">
       <div class="panel-pad">
@@ -847,8 +899,10 @@
   ];
 
   var ACC_CATS=[
-    {id:'aux',name:'辅助触点（位置指示）'},
-    {id:'alarm',name:'报警/脱扣触点'},
+    {id:'aux',name:'辅助触点 OF（位置指示）'},
+    {id:'sd',name:'脱扣触点 SD（任意脱扣）'},
+    {id:'sde',name:'故障脱扣触点 SDE（保护故障）'},
+    {id:'sdv',name:'漏电脱扣触点 SDV'},
     {id:'shunt',name:'分励脱扣器'},
     {id:'uvr',name:'欠压脱扣器'},
     {id:'motorop',name:'电动操作机构'},
@@ -869,11 +923,22 @@
     {cat:'aux',brand:'siemens',frames:['400','630'],model:'AUX_HQ 3VA9988-0AA12',qty:'10（3P）/15（4P）',trip:'全类型',note:'3P 10 槽，4P 15 槽',page:'p56 / p192',status:'verified'},
 
     // ---- 报警/脱扣触点 ----
-    {cat:'alarm',brand:'nsx',frames:['100','160','250','400','630'],model:'SD / SDE / SDV',qty:'各 1',trip:'全类型（SDE 适配器见规则）',note:'SD 任意脱扣；SDE 故障脱扣；SDV 漏电；SDx/SDTAM 电子/电机专用',page:'p131 / p142 / p144',status:'verified'},
-    {cat:'alarm',brand:'abb',frames:['100','160','250'],model:'SY / S51',qty:'SY 1–2；S51 1',trip:'全类型',note:'S52 仅 XT5/XT6；XT1/XT3 无 S51',page:'p169 / p170',status:'verified'},
-    {cat:'alarm',brand:'abb',frames:['400','630'],model:'SY / S51 / S52',qty:'各 1',trip:'全类型',note:'S52 为分励/欠压线圈脱扣专用',page:'p169 / p170',status:'verified'},
-    {cat:'alarm',brand:'siemens',frames:['100','160','250'],model:'TAS / SAS / EAS',qty:'按槽位；SAS/EAS 各 1',trip:'TAS 全类型；SAS 短路；EAS 电子',note:'SAS 部分壳架；EAS 仅 ETU',page:'p192 / p55',status:'verified'},
-    {cat:'alarm',brand:'siemens',frames:['400','630'],model:'TAS / SAS / EAS',qty:'按槽位；SAS/EAS 各 1',trip:'TAS 全类型；SAS 短路；EAS 电子',note:'SAS 3VA13/14 可见；EAS 仅 ETU',page:'p192 / p56',status:'verified'},
+    {cat:'sd',brand:'nsx',frames:['100','160','250','400','630'],model:'SD',qty:'1',trip:'全类型',note:'任意脱扣：过载、短路、接地/漏电、MX/MN、测试、插入/抽出安全脱扣；与 SDE 组合可区分故障/非故障',page:'p131 / p142',status:'verified'},
+    {cat:'sd',brand:'abb',frames:['100','160','250'],model:'SY',qty:'1–2',trip:'全类型',note:'任意脱扣；S51 见故障脱扣，S52 见线圈脱扣',page:'p169 / p170',status:'verified'},
+    {cat:'sd',brand:'abb',frames:['400','630'],model:'SY',qty:'1',trip:'全类型',note:'任意脱扣；S51/S52 分开配置',page:'p169 / p170',status:'verified'},
+    {cat:'sd',brand:'siemens',frames:['100','160','250'],model:'TAS',qty:'按槽位',trip:'全类型',note:'任意脱扣；SAS/EAS 属故障脱扣细分',page:'p192 / p55',status:'verified'},
+    {cat:'sd',brand:'siemens',frames:['400','630'],model:'TAS',qty:'按槽位',trip:'全类型',note:'任意脱扣；SAS/EAS 属故障脱扣细分',page:'p192 / p56',status:'verified'},
+
+    {cat:'sde',brand:'nsx',frames:['100','160','250'],model:'SDE',qty:'1',trip:'全类型；适配器按脱扣器类型',note:'100/160/250：Mic5A/E、6B/A/E、7E 不需要适配器；TMD/TAM/MA/Mic2.2/Mic5.2B 需 LV429451',page:'p142 / p146',status:'verified'},
+    {cat:'sde',brand:'nsx',frames:['400','630'],model:'SDE',qty:'1',trip:'全类型',note:'400/630 已标配 SDE 适配器，不需要单独订购',page:'p142 / p146',status:'verified'},
+    {cat:'sde',brand:'abb',frames:['100','160','250'],model:'S51',qty:'1',trip:'全类型；按壳架',note:'保护故障脱扣；XT1/XT3 无 S51，XT2/XT4 有；与 SY/S52 分开',page:'p169 / p170',status:'verified'},
+    {cat:'sde',brand:'abb',frames:['400','630'],model:'S51',qty:'1',trip:'全类型',note:'保护故障脱扣；S52 为线圈脱扣，单独配置',page:'p169 / p170',status:'verified'},
+    {cat:'sde',brand:'siemens',frames:['100','160','250'],model:'EAS / SAS',qty:'各 1（按槽位）',trip:'EAS 电子；SAS 短路（部分壳架）',note:'故障脱扣细分；TAS 仍为任意脱扣',page:'p192 / p55',status:'verified'},
+    {cat:'sde',brand:'siemens',frames:['400','630'],model:'EAS / SAS',qty:'各 1（按槽位）',trip:'EAS 电子；SAS 短路（部分壳架）',note:'SAS 3VA13/14 可见；EAS 仅 ETU',page:'p192 / p56',status:'verified'},
+
+    {cat:'sdv',brand:'nsx',frames:['100','160','250','400','630'],model:'SDV',qty:'1',trip:'带 Vigi 模块时',note:'漏电故障脱扣；随 Vigi 模块配置',page:'p73 / p142',status:'verified'},
+    {cat:'sdv',brand:'abb',frames:['100','160','250','400','630'],model:'RC 模块信号',qty:'1',trip:'带 RC 模块时',note:'RC 模块自带脱扣信号输出，无独立 SDV 代号',page:'p210',status:'verified'},
+    {cat:'sdv',brand:'siemens',frames:['100','160','250','400','630'],model:'RCD 模块信号',qty:'1',trip:'带 RCD 模块时',note:'RCD 模块自带报警/脱扣信号，无独立 SDV 代号',page:'p67 / p68',status:'verified'},
 
     // ---- 分励脱扣器 ----
     {cat:'shunt',brand:'nsx',frames:['100','160','250','400','630'],model:'MX',qty:'1',trip:'全类型',note:'与 MN 二选一',page:'p260',status:'verified'},
@@ -1198,7 +1263,10 @@
       wrap.style.display='block';
       wrap.src=ACC_IMAGES[ak];
       imgbox.classList.add('scrollable');
-      var aboxes=(ACC_HOTSPOTS[ak]&&ACC_HOTSPOTS[ak][accVisualState.cat])||[];
+      var ahc=accVisualState.cat;
+      if(ahc==='sd'||ahc==='sde') ahc='alarm';
+      if(ahc==='sdv') ahc='rcd';
+      var aboxes=(ACC_HOTSPOTS[ak]&&ACC_HOTSPOTS[ak][ahc])||[];
       if(accVisualState.cat==='motorop'||accVisualState.cat==='handle') aboxes=[];
       hot.innerHTML=aboxes.map(function(b){
         return '<div class="acc-text-mark active" style="left:'+b.l+'%;top:'+b.t+'%;width:'+b.w+'%;height:'+b.h+'%"></div>';
@@ -1225,7 +1293,10 @@
     var key=accImageKey();
     wrap.src=ACC_IMAGES[key];
     var e=accEntry('nsx',accVisualState.frame,accVisualState.cat);
-    var boxes=(ACC_HOTSPOTS[key]&&ACC_HOTSPOTS[key][accVisualState.cat])||[];
+    var hc=accVisualState.cat;
+    if(hc==='sd'||hc==='sde') hc='alarm';
+    if(hc==='sdv') hc='rcd';
+    var boxes=(ACC_HOTSPOTS[key]&&ACC_HOTSPOTS[key][hc])||[];
     if(accVisualState.cat==='motorop'||accVisualState.cat==='handle') boxes=[];
     hot.innerHTML=boxes.map(function(b){
       return '<div class="acc-text-mark active" style="left:'+b.l+'%;top:'+b.t+'%;width:'+b.w+'%;height:'+b.h+'%"></div>';
